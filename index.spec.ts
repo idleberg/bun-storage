@@ -43,13 +43,21 @@ import { randomUUID } from "node:crypto";
 		expect(actual).toBe(null);
 	});
 
-	test(`${type}: key() - Float Index`, () => {
+	test(`${type}: key() - Valid Fraction Index`, () => {
 		const expected = 'Hello, world';
 		storage.setItem('demo', expected);
 
 		const actual = storage.key(0.1);
 
 		expect(actual).toBe(expected);
+	});
+
+	test(`${type}: key() - Invalid Fraction Index`, () => {
+		storage.setItem('demo', 'Hello, world');
+
+		const actual = storage.key(1.1);
+
+		expect(actual).toBe(null);
 	});
 
 	test(`${type}: length() - 0`, () => {
