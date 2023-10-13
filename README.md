@@ -1,56 +1,33 @@
-# is-cson
+# bun-storage
 
-> Determines whether a string is valid CSON
+> A polyfill for the Storage API, utilizing SQLite
 
-[![License](https://img.shields.io/github/license/idleberg/node-is-cson?color=blue&style=for-the-badge)](https://github.com/idleberg/node-is-cson/blob/main/LICENSE)
-[![Version](https://img.shields.io/npm/v/is-cson?style=for-the-badge)](https://www.npmjs.org/package/is-cson)
-[![Build](https://img.shields.io/github/actions/workflow/status/idleberg/node-is-cson/default.yml?style=for-the-badge)](https://github.com/idleberg/node-is-cson/actions)
+[![License](https://img.shields.io/github/license/idleberg/bun-storage?color=blue&style=for-the-badge)](https://github.com/idleberg/bun-storage/blob/main/LICENSE)
+[![Version](https://img.shields.io/npm/v/bun-storage?style=for-the-badge)](https://www.npmjs.org/package/bun-storage)
+[![Build](https://img.shields.io/github/actions/workflow/status/idleberg/bun-storage/default.yml?style=for-the-badge)](https://github.com/idleberg/bun-storage/actions)
 
 ## Installation
 
-`npm install is-cson -S`
+`bun install bun-storage`
 
 ## Usage
 
-`isCSON(string, options?)`
+### localStorage
+
+`createLocalStorage(dbFile: string)`
+
+### sessionStorage
+
+`createSessionStorage()`
 
 **Example:**
 
 ```js
-import { isCSON } from 'is-cson';
+import { createLocalStorage, createSessionStorage } from 'bun-storage';
 
-// Generate CSON string
-const csonString = `
-  firstName: 'John'
-  lastName: 'Doe'
-`;
-
-isCSON(csonString);
-// => true
+const localStorage = createLocalStorage('./localStorage.sqlite');
+const sessionStorage = createSessionStorage();
 ```
-
-### Options
-
-#### `allowJSON`
-
-Default: `false`  
-
-Since CSON is a superset of *well-formatted* JSON, this library runs *strict* tests for CSON only. Enabling this option will also validate JSON, with CSON-specific features (such as trailing commas or single quotes) taking precedence.
-
-<details>
-<summary><strong>Example</strong></summary>
-
-```js
-const jsonString = `{
-  "firstName": "John",
-  "lastName": "Doe"
-}`;
-
-isCSON(jsonString, { allowJSON: true });
-// => true
-```
-</details>
-
 ## License
 
 This work is licensed under [The MIT License](https://opensource.org/licenses/MIT)
