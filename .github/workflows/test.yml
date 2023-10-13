@@ -1,0 +1,45 @@
+name: Test
+
+on:
+  push:
+    paths:
+    - '.github/**'
+    - 'bun.lockb'
+    - 'index.spec.ts'
+    - 'index.ts'
+    - 'package.json'
+    - 'ts.config'
+  pull_request:
+    paths:
+    - '.github/**'
+    - 'bun.lockb'
+    - 'index.spec.ts'
+    - 'index.ts'
+    - 'package.json'
+    - 'ts.config'
+  workflow_dispatch:
+
+jobs:
+  default:
+    runs-on: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      # - name: Lint Source
+        # run: pnpm run --if-present lint
+
+      - name: Build Source
+        run: bun run build
+
+      - name: Run Tests
+        run: bun run test
