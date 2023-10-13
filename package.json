@@ -1,0 +1,25 @@
+{
+  "name": "bun-storage",
+  "version": "0.0.0",
+  "description": "A polyfill for the Storage API, utilizing SQLite",
+  "exports": "./index.ts",
+	"type":"module",
+  "scripts": {
+    "build": "bun build --target=bun --minify --sourcemap=external --outdir=dist ./index.ts",
+    "dev": "bun run build -- --watch",
+    "test": "bun test"
+  },
+  "keywords": [
+		"bun",
+		"storage api",
+		"localstorage",
+		"sessionstorage",
+		"polyfill"
+	],
+  "author": "Jan T. Sott",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.8.5",
+    "bun-types": "^1.0.6"
+  }
+}
