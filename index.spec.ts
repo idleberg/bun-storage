@@ -1,135 +1,145 @@
 import { beforeEach, expect, test } from 'bun:test';
-import { createLocalStorage } from './index.js';
+import { createLocalStorage, createSessionStorage } from './index.js';
+import { randomUUID } from "node:crypto";
 
-const localStorage = createLocalStorage('./db.sqlite');
+[
+	{
+		type: 'localStorage',
+		storage: createLocalStorage('./db.sqlite')
+	},
+	{
+		type: 'sessionStorage',
+		storage: createSessionStorage()
+	}
+].map(({type, storage}) => {
+	beforeEach(() => {
+		storage.clear();
+	});
 
-beforeEach(() => {
-	localStorage.clear();
-});
+	test(`${type}: clear()`, () => {
+		storage.setItem('demo', 'Hello, world!');
+		storage.clear();
 
-test('clear()', () => {
-	localStorage.setItem('demo', 'Hello, world!');
-	localStorage.clear();
+		const actual = storage.getItem('demo');
+		const expected = null;
 
-	const actual = localStorage.getItem('demo');
-	const expected = null;
+		expect(actual).toBe(expected);
+	});
 
-	expect(actual).toBe(expected);
-});
+	test(`${type}: key() - Valid Index`, () => {
+		const expected = 'Hello, world';
+		storage.setItem('demo', expected);
 
-test('key() - Valid Index', () => {
-	const expected = 'Hello, world';
-	localStorage.setItem('demo', expected);
+		const actual = storage.key(0);
 
-	const actual = localStorage.key(0);
+		expect(actual).toBe(expected);
+	});
 
-	expect(actual).toBe(expected);
-});
+	test(`${type}: key() - Invalid Index`, () => {
+		storage.setItem('demo', 'Hello, world');
 
-test('key() - Invalid Index', () => {
-	localStorage.setItem('demo', 'Hello, world');
+		const actual = storage.key(1);
 
-	const actual = localStorage.key(1);
+		expect(actual).toBe(null);
+	});
 
-	expect(actual).toBe(null);
-});
+	test(`${type}: key() - Float Index`, () => {
+		const expected = 'Hello, world';
+		storage.setItem('demo', expected);
 
-test('key() - Float Index', () => {
-	const expected = 'Hello, world';
-	localStorage.setItem('demo', expected);
+		const actual = storage.key(0.1);
 
-	const actual = localStorage.key(0.1);
+		expect(actual).toBe(expected);
+	});
 
-	expect(actual).toBe(expected);
-});
+	test(`${type}: length() - 0`, () => {
+		storage.setItem('demo', 'Hello, world!');
+		storage.clear();
 
-test('length() - 0', () => {
-	localStorage.setItem('demo', 'Hello, world!');
-	localStorage.clear();
+		const actual = storage.length;
+		const expected = 0;
 
-	const actual = localStorage.length;
-	const expected = 0;
+		expect(actual).toBe(expected);
+	});
 
-	expect(actual).toBe(expected);
-});
+	test(`${type}: length() - 1`, () => {
+		storage.setItem('demo', 'Hello, world!');
 
-test('length() - 1', () => {
-	localStorage.setItem('demo', 'Hello, world!');
+		const actual = storage.length;
+		const expected = 1;
 
-	const actual = localStorage.length;
-	const expected = 1;
+		expect(actual).toBe(expected);
+	});
 
-	expect(actual).toBe(expected);
-});
+	test(`${type}: removeItem()`, () => {
+		storage.setItem('demo', 'Hello, world!');
+		storage.removeItem('demo');
+		const actual = storage.getItem('demo');
 
-test('removeItem()', () => {
-	localStorage.setItem('demo', 'Hello, world!');
-	localStorage.removeItem('demo');
-	const actual = localStorage.getItem('demo');
+		expect(actual).toBe(null);
+	});
 
-	expect(actual).toBe(null);
-});
+	test(`${type}: *etItem() - String`, () => {
+		const expected = 'Hello, world!';
+		storage.setItem('demo', expected);
+		const actual = storage.getItem('demo');
 
-test('*etItem() - String', () => {
-	const expected = 'Hello, world!';
-	localStorage.setItem('demo', expected);
-	const actual = localStorage.getItem('demo');
+		expect(actual).toBe(expected);
+	});
 
-	expect(actual).toBe(expected);
-});
+	test(`${type}: *etItem() - Number`, () => {
+		const expected = 1;
+		storage.setItem('demo', expected);
+		const actual = storage.getItem('demo');
 
-test('*etItem() - Number', () => {
-	const expected = 1;
-	localStorage.setItem('demo', expected);
-	const actual = localStorage.getItem('demo');
+		expect(actual).toBe(String(expected));
+	});
 
-	expect(actual).toBe(String(expected));
-});
+	test(`${type}: *etItem() - Boolean`, () => {
+		const expected = true;
+		storage.setItem('demo', expected);
+		const actual = storage.getItem('demo');
 
-test('*etItem() - Boolean', () => {
-	const expected = true;
-	localStorage.setItem('demo', expected);
-	const actual = localStorage.getItem('demo');
+		expect(actual).toBe(String(expected));
+	});
 
-	expect(actual).toBe(String(expected));
-});
+	test(`${type}: *etItem() - Null`, () => {
+		const expected = null;
+		storage.setItem('demo', expected);
+		const actual = storage.getItem('demo');
 
-test('*etItem() - Null', () => {
-	const expected = null;
-	localStorage.setItem('demo', expected);
-	const actual = localStorage.getItem('demo');
+		expect(actual).toBe(String(expected));
+	});
 
-	expect(actual).toBe(String(expected));
-});
+	test(`${type}: *etItem() - Object`, () => {
+		const expected = {};
+		storage.setItem('demo', expected);
+		const actual = storage.getItem('demo');
 
-test('*etItem() - Object', () => {
-	const expected = {};
-	localStorage.setItem('demo', expected);
-	const actual = localStorage.getItem('demo');
+		expect(actual).toBe(String(expected));
+	});
 
-	expect(actual).toBe(String(expected));
-});
+	test(`${type}: *etItem() - Undefined`, () => {
+		const expected = undefined;
+		storage.setItem('demo', expected);
+		const actual = storage.getItem('demo');
 
-test('*etItem() - Undefined', () => {
-	const expected = undefined;
-	localStorage.setItem('demo', expected);
-	const actual = localStorage.getItem('demo');
+		expect(actual).toBe(String(expected));
+	});
 
-	expect(actual).toBe(String(expected));
-});
+	test(`${type}: *etItem() - BigInt`, () => {
+		const expected = BigInt('1');
+		storage.setItem('demo', expected);
+		const actual = storage.getItem('demo');
 
-test('*etItem() - BigInt', () => {
-	const expected = BigInt('1');
-	localStorage.setItem('demo', expected);
-	const actual = localStorage.getItem('demo');
+		expect(actual).toBe(String(expected));
+	});
 
-	expect(actual).toBe(String(expected));
-});
+	test(`${type}: *etItem() - Symbol`, () => {
+		const expected = Symbol('foo');
+		storage.setItem('demo', expected);
+		const actual = storage.getItem('demo');
 
-test('*etItem() - Symbol', () => {
-	const expected = Symbol('foo');
-	localStorage.setItem('demo', expected);
-	const actual = localStorage.getItem('demo');
-
-	expect(actual).toBe(String(expected));
+		expect(actual).toBe(String(expected));
+	});
 });
