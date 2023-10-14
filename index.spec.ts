@@ -22,7 +22,7 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 		storage.clear();
 	});
 
-	test(`${type}: clear()`, () => {
+	test(`${type}.clear()`, () => {
 		storage.setItem('demo', 'Hello, world!');
 		storage.clear();
 
@@ -32,7 +32,7 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 		expect(actual).toBe(expected);
 	});
 
-	test(`${type}: key() - Valid Index`, () => {
+	test(`${type}.key() - Valid Index`, () => {
 		const expected = 'Hello, world';
 		storage.setItem('demo', expected);
 
@@ -41,7 +41,7 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 		expect(actual).toBe(expected);
 	});
 
-	test(`${type}: key() - Invalid Index`, () => {
+	test(`${type}.key() - Invalid Index`, () => {
 		storage.setItem('demo', 'Hello, world');
 
 		const actual = storage.key(1);
@@ -49,7 +49,7 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 		expect(actual).toBe(null);
 	});
 
-	test(`${type}: key() - Valid Fraction Index`, () => {
+	test(`${type}.key() - Valid Fraction Index`, () => {
 		const expected = 'Hello, world';
 		storage.setItem('demo', expected);
 
@@ -58,7 +58,7 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 		expect(actual).toBe(expected);
 	});
 
-	test(`${type}: key() - Invalid Fraction Index`, () => {
+	test(`${type}.key() - Invalid Fraction Index`, () => {
 		storage.setItem('demo', 'Hello, world');
 
 		const actual = storage.key(1.1);
@@ -66,7 +66,7 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 		expect(actual).toBe(null);
 	});
 
-	test(`${type}: length() - 0`, () => {
+	test(`${type}.length() - 0`, () => {
 		storage.setItem('demo', 'Hello, world!');
 		storage.clear();
 
@@ -76,7 +76,7 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 		expect(actual).toBe(expected);
 	});
 
-	test(`${type}: length() - 1`, () => {
+	test(`${type}.length() - 1`, () => {
 		storage.setItem('demo', 'Hello, world!');
 
 		const actual = storage.length;
@@ -85,7 +85,7 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 		expect(actual).toBe(expected);
 	});
 
-	test(`${type}: removeItem()`, () => {
+	test(`${type}.removeItem()`, () => {
 		storage.setItem('demo', 'Hello, world!');
 		storage.removeItem('demo');
 		const actual = storage.getItem('demo');
@@ -93,7 +93,7 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 		expect(actual).toBe(null);
 	});
 
-	test(`${type}: *etItem() - String`, () => {
+	test(`${type}.*etItem() - String`, () => {
 		const expected = 'Hello, world!';
 		storage.setItem('demo', expected);
 		const actual = storage.getItem('demo');
@@ -101,7 +101,7 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 		expect(actual).toBe(expected);
 	});
 
-	test(`${type}: *etItem() - Number`, () => {
+	test(`${type}.*etItem() - Number`, () => {
 		const expected = 1;
 		storage.setItem('demo', expected);
 		const actual = storage.getItem('demo');
@@ -109,7 +109,7 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 		expect(actual).toBe(String(expected));
 	});
 
-	test(`${type}: *etItem() - Boolean`, () => {
+	test(`${type}.*etItem() - Boolean`, () => {
 		const expected = true;
 		storage.setItem('demo', expected);
 		const actual = storage.getItem('demo');
@@ -117,7 +117,7 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 		expect(actual).toBe(String(expected));
 	});
 
-	test(`${type}: *etItem() - Null`, () => {
+	test(`${type}.*etItem() - Null`, () => {
 		const expected = null;
 		storage.setItem('demo', expected);
 		const actual = storage.getItem('demo');
@@ -125,7 +125,7 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 		expect(actual).toBe(String(expected));
 	});
 
-	test(`${type}: *etItem() - Object`, () => {
+	test(`${type}.*etItem() - Object`, () => {
 		const expected = {};
 		storage.setItem('demo', expected);
 		const actual = storage.getItem('demo');
@@ -133,7 +133,7 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 		expect(actual).toBe(String(expected));
 	});
 
-	test(`${type}: *etItem() - Undefined`, () => {
+	test(`${type}.*etItem() - Undefined`, () => {
 		const expected = undefined;
 		storage.setItem('demo', expected);
 		const actual = storage.getItem('demo');
@@ -141,7 +141,7 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 		expect(actual).toBe(String(expected));
 	});
 
-	test(`${type}: *etItem() - BigInt`, () => {
+	test(`${type}.*etItem() - BigInt`, () => {
 		const expected = BigInt('1');
 		storage.setItem('demo', expected);
 		const actual = storage.getItem('demo');
@@ -149,7 +149,7 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 		expect(actual).toBe(String(expected));
 	});
 
-	test(`${type}: *etItem() - Symbol`, () => {
+	test(`${type}.*etItem() - Symbol`, () => {
 		const expected = Symbol('foo');
 		storage.setItem('demo', expected);
 		const actual = storage.getItem('demo');
