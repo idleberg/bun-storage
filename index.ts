@@ -1,7 +1,7 @@
 import { Database } from 'bun:sqlite';
 
 if (!process.versions.bun) {
-	throw ReferenceError('This script only run in the Bun runtime.');
+	throw ReferenceError('This script only runs in the Bun runtime.');
 }
 
 type KeyValuePair = {
