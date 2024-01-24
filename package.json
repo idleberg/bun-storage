@@ -3,8 +3,8 @@
   "version": "0.1.2",
   "description": "A polyfill for the Storage API, utilizing SQLite",
   "exports": "./index.ts",
-	"type":"module",
-	"files": [
+  "type": "module",
+  "files": [
     "index.ts",
     "LICENSE",
     "README.md"
@@ -15,13 +15,12 @@
     "test": "bun test"
   },
   "keywords": [
-		"bun",
-		"storage api",
-		"localstorage",
-		"sessionstorage",
-		"polyfill"
-	],
-
+    "bun",
+    "storage api",
+    "localstorage",
+    "sessionstorage",
+    "polyfill"
+  ],
   "author": "Jan T. Sott",
   "license": "MIT",
   "repository": {
@@ -29,7 +28,7 @@
     "url": "https://github.com/idleberg/bun-storage.git"
   },
   "devDependencies": {
-    "@types/node": "^20.8.5",
-    "bun-types": "^1.0.6"
+    "@types/node": "^20.11.6",
+    "bun-types": "^1.0.25"
   }
 }
