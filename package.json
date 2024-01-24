@@ -4,6 +4,9 @@
   "description": "A polyfill for the Storage API, utilizing SQLite",
   "exports": "./index.ts",
   "type": "module",
+	"engines": {
+		"node": ">=20"
+	},
   "files": [
     "index.ts",
     "LICENSE",
