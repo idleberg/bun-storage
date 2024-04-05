@@ -1,7 +1,7 @@
 {
   "name": "bun-storage",
   "version": "0.1.3",
-  "description": "A polyfill for the Storage API, utilizing SQLite",
+  "description": "A ponyfill for the Storage API, utilizing SQLite",
   "exports": "./index.ts",
   "type": "module",
   "engines": {
@@ -22,7 +22,7 @@
     "storage api",
     "localstorage",
     "sessionstorage",
-    "polyfill"
+    "ponyfill"
   ],
   "author": "Jan T. Sott",
   "license": "MIT",

@@ -1,6 +1,6 @@
 # bun-storage
 
-> A polyfill for the Storage API, utilizing SQLite
+> A ponyfill for the Storage API, utilizing SQLite
 
 [![License](https://img.shields.io/github/license/idleberg/bun-storage?color=blue&style=for-the-badge)](https://github.com/idleberg/bun-storage/blob/main/LICENSE)
 [![Version](https://img.shields.io/npm/v/bun-storage?style=for-the-badge)](https://www.npmjs.org/package/bun-storage)
