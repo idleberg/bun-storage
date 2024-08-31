@@ -48,6 +48,10 @@ export function createLocalStorage(fileName: string) {
 			}
 		},
 
+		/**
+		 * The `length` read-only property of the Storage interface returns the number of data items stored in a given `Storage` object.
+		 * @returns {number} The number of items stored in the `Storage` object.
+		 */
 		get length(): number {
 			const rows = db.prepare('SELECT COUNT(*) FROM kv').get() as Record<string, string>;
 
