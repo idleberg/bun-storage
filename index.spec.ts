@@ -33,8 +33,8 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 	});
 
 	test(`${type}.key() - Valid Index`, () => {
-		const expected = 'Hello, world';
-		storage.setItem('demo', expected);
+		const expected = 'demo';
+		storage.setItem(expected, 'Hello, world!');
 
 		const actual = storage.key(0);
 
@@ -50,8 +50,8 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 	});
 
 	test(`${type}.key() - Valid Fraction Index`, () => {
-		const expected = 'Hello, world';
-		storage.setItem('demo', expected);
+		const expected = 'demo';
+		storage.setItem(expected, 'Hello, world');
 
 		const actual = storage.key(0.1);
 

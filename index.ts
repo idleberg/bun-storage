@@ -69,10 +69,10 @@ export function createLocalStorage(fileName: string): Storage {
 		 */
 		key(index: unknown): string | null {
 			const normalizedIndex = parseInt(String(index), 10) || 0;
-			const query = db.prepare('SELECT value FROM kv ORDER BY key LIMIT 1 OFFSET ?');
+			const query = db.prepare('SELECT key FROM kv ORDER BY key LIMIT 1 OFFSET ?');
 			const item = query.get(normalizedIndex) as KeyValuePair;
 
-			return item ? item.value : null;
+			return item ? item.key : null;
 		},
 
 		/**
