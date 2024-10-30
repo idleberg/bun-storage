@@ -1,5 +1,5 @@
 import { beforeEach, expect, test } from 'bun:test';
-import { createLocalStorage, createSessionStorage } from './index.js';
+import { createLocalStorage, createSessionStorage } from './index.ts';
 
 // Helpers
 import { randomUUID } from "node:crypto";
