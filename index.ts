@@ -49,8 +49,8 @@ export function createLocalStorage(fileName: string): Storage {
 
 		/**
 		 * The `getItem()` method of the `Storage` interface, when passed a key name, will return that key's value, or null if the key does not exist, in the given `Storage` object.
-		 * @param {string} keyName A string containing the name of the key you want to retrieve the value of.
-		 * @returns {string | null} A string containing the value of the key. If the key does not exist, `null` is returned.
+		 * @param keyName A string containing the name of the key you want to retrieve the value of.
+		 * @returns A string containing the value of the key. If the key does not exist, `null` is returned.
 		 */
 		getItem(keyName: string): string | null {
 			try {
@@ -64,8 +64,8 @@ export function createLocalStorage(fileName: string): Storage {
 
 		/**
 		 * The key() method of the Storage interface, when passed a number n, returns the name of the nth key in a given Storage object. The order of keys is user-agent defined, so you should not rely on it.
-		 * @param {number} index An integer representing the number of the key you want to get the name of. This is a zero-based index.
-		 * @returns {string | null} A string containing the name of the key. If the index does not exist, null is returned.
+		 * @param index An integer representing the number of the key you want to get the name of. This is a zero-based index.
+		 * @returns A string containing the name of the key. If the index does not exist, null is returned.
 		 */
 		key(index: unknown): string | null {
 			const normalizedIndex = parseInt(String(index), 10) || 0;
@@ -77,7 +77,7 @@ export function createLocalStorage(fileName: string): Storage {
 
 		/**
 		 * The `length` read-only property of the Storage interface returns the number of data items stored in a given `Storage` object.
-		 * @returns {number} The number of items stored in the `Storage` object.
+		 * @returns The number of items stored in the `Storage` object.
 		 */
 		get length(): number {
 			const rows = db.prepare('SELECT COUNT(*) FROM kv').get() as Record<string, string>;
@@ -87,7 +87,7 @@ export function createLocalStorage(fileName: string): Storage {
 
 		/**
 		 * The `removeItem()` method of the `Storage` interface, when passed a key name, will remove that key from the given `Storage` object if it exists. The `Storage` interface of the Web Storage API provides access to a particular domain's session or local storage.
-		 * @param {string} keyName A string containing the name of the key you want to remove.
+		 * @param keyName A string containing the name of the key you want to remove.
 		 */
 		removeItem(keyName: string): void {
 			db.prepare('DELETE FROM kv WHERE key = ?').run(keyName);
@@ -95,8 +95,8 @@ export function createLocalStorage(fileName: string): Storage {
 
 		/**
 		 * The setItem() method of the Storage interface, when passed a key name and value, will add that key to the given Storage object, or update that key's value if it already exists.
-		 * @param {string} keyName A string containing the name of the key you want to create/update.
-		 * @param {string} keyValue A string containing the value you want to give the key you are creating/updating.
+		 * @param keyName A string containing the name of the key you want to create/update.
+		 * @param keyValue A string containing the value you want to give the key you are creating/updating.
 		 */
 		setItem(keyName: string, keyValue: unknown): void {
 			db.prepare('REPLACE INTO kv (key, value) VALUES (?, ?)').run(String(keyName), String(keyValue));
