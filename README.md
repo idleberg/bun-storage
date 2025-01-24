@@ -17,12 +17,12 @@
 ```js
 import { createLocalStorage, createSessionStorage } from 'bun-storage';
 
-const [ localStorage, localStorageEmitter ] = createLocalStorage('./db.sqlite');
-const [ sessionStorage, sessionStorageEmitter ] = createSessionStorage();
+const [ localStorage, localEmitter ] = createLocalStorage('./db.sqlite');
+const [ sessionStorage, sessionEmitter ] = createSessionStorage();
 
 // Listen for storage changes
-localStorageEmitter.addListener('storage', console.log);
-sessionStorageEmitter.addListener('storage', console.log);
+localEmitter.addListener('storage', console.log);
+sessionEmitter.addListener('storage', console.log);
 ```
 
 ## API
