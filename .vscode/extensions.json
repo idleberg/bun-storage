@@ -1,5 +1,6 @@
 {
 	"recommendations": [
+		"oven.bun-vscode",
 		"editorconfig.editorconfig",
 		"esbenp.prettier-vscode",
 	]

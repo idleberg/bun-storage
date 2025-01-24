@@ -1,4 +1,6 @@
 {
+  "bun.debugTerminal.enabled": true,
+  "bun.test.filePattern": "**/*.spec.ts",
 	"editor.formatOnSave": true,
 	"[javascript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
