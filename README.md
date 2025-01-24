@@ -25,8 +25,8 @@
 ```js
 import { createLocalStorage, createSessionStorage } from 'bun-storage';
 
-const localStorage = createLocalStorage('./db.sqlite');
-const sessionStorage = createSessionStorage();
+const [ localStorage, eventEmitter ] = createLocalStorage('./db.sqlite');
+const [ sessionStorage, eventEmitter ] = createSessionStorage();
 ```
 ## License
 

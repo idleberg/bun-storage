@@ -10,30 +10,37 @@ type KeyValuePair = {
 	value: string;
 };
 
-class Storage {
-	db: Database;
-	eventEmitter?: EventEmitter;
+type EventOptions = {
+	emitter?: EventEmitter;
+	url?: string;
+};
 
-	constructor(fileName: string, eventEmitter?: EventEmitter) {
-		if (eventEmitter && !(eventEmitter instanceof EventEmitter)) {
-			throw new TypeError('The eventEmitter argument must be an instance of EventEmitter');
+type Storage = [StorageApi, EventEmitter];
+
+class StorageApi {
+	#db: Database;
+	#eventEmitter?: EventEmitter;
+
+	constructor(fileName: string, options: EventOptions = {}) {
+		if (options.emitter && !(options.emitter instanceof EventEmitter)) {
+			throw new TypeError('The emitter option must be an instance of EventEmitter');
 		}
 
-		this.eventEmitter = eventEmitter;
+		this.#eventEmitter = options.emitter
 
-		this.db = new Database(fileName, {
+		this.#db = new Database(fileName, {
 			create: true,
 		});
 
-		this.db.exec('CREATE TABLE IF NOT EXISTS kv (key text unique, value text)');
+		this.#db.exec('CREATE TABLE IF NOT EXISTS kv (key text unique, value text)');
 
 		process.on('exit', () => {
 			// This should not be necessary
 			if (fileName === ':memory:') {
-				this.db.prepare('DELETE FROM kv').run();
+				this.#db.prepare('DELETE FROM kv').run();
 			}
 
-			this.db.close();
+			this.#db.close();
 		});
 	}
 
@@ -41,7 +48,7 @@ class Storage {
 	 * The `clear()` method of the `Storage` interface clears all keys stored in a given `Storage` object.
 	 */
 	clear(): void {
-		this.db.prepare('DELETE FROM kv').run();
+		this.#db.prepare('DELETE FROM kv').run();
 
 		this.#dispatchEvent(null, null, null);
 	}
@@ -53,7 +60,7 @@ class Storage {
 	 */
 	getItem(keyName: string): string | null {
 		try {
-			const item = this.db.prepare('SELECT value FROM kv WHERE key = ?').get(keyName) as KeyValuePair;
+			const item = this.#db.prepare('SELECT value FROM kv WHERE key = ?').get(keyName) as KeyValuePair;
 
 			return item['value'];
 		} catch (error) {
@@ -68,7 +75,7 @@ class Storage {
 	 */
 	key(index: unknown): string | null {
 		const normalizedIndex = parseInt(String(index), 10) || 0;
-		const query = this.db.prepare('SELECT key FROM kv ORDER BY key LIMIT 1 OFFSET ?');
+		const query = this.#db.prepare('SELECT key FROM kv ORDER BY key LIMIT 1 OFFSET ?');
 		const item = query.get(normalizedIndex) as KeyValuePair;
 
 		return item ? item.key : null;
@@ -79,7 +86,7 @@ class Storage {
 	 * @returns The number of items stored in the `Storage` object.
 	 */
 	get length(): number {
-		const rows = this.db.prepare('SELECT COUNT(*) FROM kv').get() as Record<string, string>;
+		const rows = this.#db.prepare('SELECT COUNT(*) FROM kv').get() as Record<string, string>;
 
 		return parseInt(rows['COUNT(*)'], 10) || 0;
 	}
@@ -91,7 +98,7 @@ class Storage {
 	removeItem(keyName: string): void {
 		const oldValue = this.getItem(keyName);
 
-		this.db.prepare('DELETE FROM kv WHERE key = ?').run(keyName);
+		this.#db.prepare('DELETE FROM kv WHERE key = ?').run(keyName);
 
 		this.#dispatchEvent(keyName, null, oldValue);
 	}
@@ -104,20 +111,28 @@ class Storage {
 	setItem(keyName: string, keyValue: unknown): void {
 		const oldValue = this.getItem(keyName);
 
-		this.db.prepare('REPLACE INTO kv (key, value) VALUES (?, ?)').run(String(keyName), String(keyValue));
+		this.#db.prepare('REPLACE INTO kv (key, value) VALUES (?, ?)').run(String(keyName), String(keyValue));
 
 		this.#dispatchEvent(keyName, keyValue, oldValue);
 	}
+
+	/**
+	 * Dispatches a storage event using the provided event emitter.
+	 * @private
+	 * @param key The key that was changed. If `null`, all keys were changed.
+	 * @param newValue The new value of the key.
+	 * @param oldValue The old value of the key.
+	 */
 	#dispatchEvent(key: string | null, newValue: unknown, oldValue: string | null) {
-		if (!this.eventEmitter) {
+		if (!this.#eventEmitter) {
 			return;
 		}
 
-		const storageArea = this.db.prepare('SELECT key, value FROM kv').all() as KeyValuePair[];
+		const storageArea = this.#db.prepare('SELECT key, value FROM kv').all() as KeyValuePair[];
 
-		this.eventEmitter.emit('storage', {
-			key: key === 'null' ? null : key,
-			newValue: key === 'null' ? null : newValue,
+		this.#eventEmitter.emit('storage', {
+			key: key === null ? null : key,
+			newValue: newValue === null ? null : String(newValue),
 			oldValue,
 			storageArea: Object.fromEntries(storageArea.map(({ key, value }) => ([key, value]))),
 			url: undefined,
@@ -130,14 +145,38 @@ class Storage {
  * @param fileName path to the SQLite database file
  * @returns
  */
-export function createLocalStorage(fileName: string, eventEmitter?: EventEmitter): Storage {
-	return new Storage(fileName, eventEmitter);
+export function createLocalStorage(fileName: string): Storage {
+	const emitter = createEventEmitter();
+
+	const api = new StorageApi(fileName, {
+		emitter
+	});
+
+	return [
+		api,
+		emitter
+	];
 }
 
 /**
  * Returns an instance of `sessionStorage` that uses a memory to store data.
  * @returns
- */
-export function createSessionStorage(eventEmitter?: EventEmitter): Storage {
-	return new Storage(':memory:', eventEmitter);
+*/
+export function createSessionStorage(): Storage {
+	const emitter = createEventEmitter();
+
+	const api = new StorageApi(':memory:', {
+		emitter
+	});
+
+	return [
+		api,
+		emitter
+	];
+}
+
+function createEventEmitter(): EventEmitter {
+	class StorageEventEmitter extends EventEmitter { };
+
+	return new StorageEventEmitter();
 }

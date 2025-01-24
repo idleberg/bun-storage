@@ -8,16 +8,19 @@ import { tmpdir } from 'node:os';
 
 const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 
+const [LocalStorage] = createLocalStorage(dbFile);
+const [SessionStorage] = createSessionStorage();
+
 [
 	{
 		type: 'localStorage',
-		storage: createLocalStorage(dbFile)
+		storage: LocalStorage
 	},
 	{
 		type: 'sessionStorage',
-		storage: createSessionStorage()
+		storage: SessionStorage
 	}
-].map(({type, storage}) => {
+].map(({ type, storage }) => {
 	beforeEach(() => {
 		storage.clear();
 	});
