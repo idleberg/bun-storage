@@ -12,14 +12,6 @@
 
 ## Usage
 
-### localStorage
-
-`createLocalStorage(dbFile: string)`
-
-### sessionStorage
-
-`createSessionStorage()`
-
 **Example:**
 
 ```js
@@ -32,6 +24,16 @@ const [ sessionStorage, sessionStorageEmitter ] = createSessionStorage();
 localStorageEmitter.on('storage', data => console.log('localStorage has changed', data));
 sessionStorageEmitter.on('storage', data => console.log('sessionStorage has changed', data));
 ```
+
+## API
+
+### localStorage
+
+`createLocalStorage(dbFile: string)`
+
+### sessionStorage
+
+`createSessionStorage()`
 
 ## License
 
