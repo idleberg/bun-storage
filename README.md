@@ -27,13 +27,25 @@ sessionEmitter.addListener('storage', console.log);
 
 ## API
 
-### localStorage
+### createLocalStorage
 
-`createLocalStorage(dbFile: string)`
+Usage: `createLocalStorage(dbFile: string)`  
+Returns: `[Storage, EventEmitter]`  
 
-### sessionStorage
+Creates an instance of the [`localStorage`](https://developer.mozilla.org/docs/Web/API/Window/localStorage) API and a corresponding EventEmitter.
 
-`createSessionStorage()`
+### createSessionStorage
+
+Usage: `createSessionStorage()`  
+Returns: `[Storage, EventEmitter]`  
+
+Creates an instance of the [`sessionStorage`](https://developer.mozilla.org/docs/Web/API/Window/sessionStorage) API and a corresponding EventEmitter.
+
+### Storage
+
+Usage: `new Storage(filePath: string | ':memory:', options: StorageEventOptions)`
+
+This class is used internally by both of the above factory functions. However, instanting the class allows you more control over the EventEmitter, i.e. you pass an existing one from your application code.
 
 ## License
 
