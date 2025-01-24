@@ -12,18 +12,30 @@ type KeyValuePair = {
 
 type EventOptions = {
 	emitter?: EventEmitter;
+	eventName?: string;
 };
 
 export class Storage {
 	#db: Database;
-	#eventEmitter?: EventEmitter;
+	#emitter?: EventEmitter;
+	#eventName = 'storage';
 
+	/**
+	 * Creates a new instance of `Storage`, a ponyfill for the `localStorage`/`sessionStorage` APIs.
+	 * @param fileName path to the SQLite database file, or `:memory:` to act like sessionStorage.
+	 * @param options An object containing options for the event emitter.
+	 * @param options.emitter An instance of `EventEmitter` to use for dispatching storage events.
+	 * @param options.eventName The name of the event to dispatch when a storage event occurs. Defaults to `storage`.
+	 * @throws {TypeError} If the `emitter` option is provided and is not an instance of `EventEmitter`.
+	 * @returns A new instance of `Storage`.
+	 */
 	constructor(fileName: string, options: EventOptions = {}) {
 		if (options.emitter && !(options.emitter instanceof EventEmitter)) {
 			throw new TypeError('The emitter option must be an instance of EventEmitter.');
 		}
 
-		this.#eventEmitter = options.emitter;
+		this.#emitter = options.emitter;
+		this.#eventName = options?.eventName || 'storage';
 
 		this.#db = new Database(fileName, {
 			create: true,
@@ -121,13 +133,13 @@ export class Storage {
 	 * @param oldValue The old value of the key.
 	 */
 	#dispatchEvent(key: string | null, newValue: unknown, oldValue: string | null) {
-		if (!this.#eventEmitter) {
+		if (!this.#emitter) {
 			return;
 		}
 
 		const storageArea = this.#db.prepare('SELECT key, value FROM kv').all() as KeyValuePair[];
 
-		this.#eventEmitter.emit('storage', {
+		this.#emitter.emit(this.#eventName, {
 			key: key === null ? null : key,
 			newValue: newValue === null ? null : String(newValue),
 			oldValue,
