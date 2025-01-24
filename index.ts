@@ -20,7 +20,7 @@ export class Storage {
 
 	constructor(fileName: string, options: EventOptions = {}) {
 		if (options.emitter && !(options.emitter instanceof EventEmitter)) {
-			throw new TypeError('The emitter option must be an instance of EventEmitter');
+			throw new TypeError('The emitter option must be an instance of EventEmitter.');
 		}
 
 		this.#eventEmitter = options.emitter;
