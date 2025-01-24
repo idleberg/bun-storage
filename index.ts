@@ -12,7 +12,6 @@ type KeyValuePair = {
 
 type EventOptions = {
 	emitter?: EventEmitter;
-	url?: string;
 };
 
 type Storage = [StorageApi, EventEmitter];
@@ -26,7 +25,7 @@ class StorageApi {
 			throw new TypeError('The emitter option must be an instance of EventEmitter');
 		}
 
-		this.#eventEmitter = options.emitter
+		this.#eventEmitter = options.emitter;
 
 		this.#db = new Database(fileName, {
 			create: true,
@@ -166,7 +165,7 @@ export function createSessionStorage(): Storage {
 	const emitter = createEventEmitter();
 
 	const api = new StorageApi(':memory:', {
-		emitter
+		emitter,
 	});
 
 	return [
