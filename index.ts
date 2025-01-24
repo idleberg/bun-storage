@@ -1,16 +1,21 @@
 import { Database } from 'bun:sqlite';
+import EventEmitter from 'events';
 
 if (!process.versions.bun) {
 	throw ReferenceError('This library only runs using the Bun runtime. Find out more at https://bun.sh/');
 }
 
-type Storage = {
+interface Storage {
 	clear(): void;
 	getItem(keyName: string): string | null;
 	key(index: unknown): string | null;
 	readonly length: number;
 	removeItem(keyName: string): void;
 	setItem(keyName: string, keyValue: unknown): void;
+};
+
+interface InternalStorage extends Storage {
+	__dispatchEvent(key: string | null, newValue: unknown, oldValue: string | null): void;
 };
 
 type KeyValuePair = {
@@ -23,7 +28,11 @@ type KeyValuePair = {
  * @param fileName path to the SQLite database file
  * @returns
  */
-export function createLocalStorage(fileName: string): Storage {
+export function createLocalStorage(fileName: string, eventEmitter?: EventEmitter): Storage {
+	if (eventEmitter && !(eventEmitter instanceof EventEmitter)) {
+		throw new TypeError('The eventEmitter argument must be an instance of EventEmitter');
+	}
+
 	const db = new Database(fileName, {
 		create: true,
 	});
@@ -45,6 +54,8 @@ export function createLocalStorage(fileName: string): Storage {
 		 */
 		clear(): void {
 			db.prepare('DELETE FROM kv').run();
+
+			this.__dispatchEvent(null, null, null);
 		},
 
 		/**
@@ -90,7 +101,11 @@ export function createLocalStorage(fileName: string): Storage {
 		 * @param keyName A string containing the name of the key you want to remove.
 		 */
 		removeItem(keyName: string): void {
+			const oldValue = this.getItem(keyName);
+
 			db.prepare('DELETE FROM kv WHERE key = ?').run(keyName);
+
+			this.__dispatchEvent(keyName, null, oldValue);
 		},
 
 		/**
@@ -99,10 +114,30 @@ export function createLocalStorage(fileName: string): Storage {
 		 * @param keyValue A string containing the value you want to give the key you are creating/updating.
 		 */
 		setItem(keyName: string, keyValue: unknown): void {
+			const oldValue = this.getItem(keyName);
+
 			db.prepare('REPLACE INTO kv (key, value) VALUES (?, ?)').run(String(keyName), String(keyValue));
+
+			this.__dispatchEvent(keyName, keyValue, oldValue);
 		},
-	};
-}
+
+		__dispatchEvent(key, newValue, oldValue) {
+			if (!eventEmitter) {
+				return;
+			}
+
+			const storageArea = db.prepare('SELECT key, value FROM kv').all() as KeyValuePair[];
+
+			eventEmitter.emit('storage', {
+				key: key === 'null' ? null : key,
+				newValue: key === 'null' ? null : newValue,
+				oldValue,
+				storageArea: Object.fromEntries(storageArea.map(({ key, value }) => ([key, value]))),
+				url: undefined,
+			});
+		}
+	} as InternalStorage;
+};
 
 /**
  * Returns an instance of `sessionStorage` that uses a memory to store data.
