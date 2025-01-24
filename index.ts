@@ -21,7 +21,7 @@ export class Storage {
 	#eventName = 'storage';
 
 	/**
-	 * Creates a new instance of `Storage`, a ponyfill for the `localStorage`/`sessionStorage` APIs.
+	 * Creates a new instance of `Storage`, a ponyfill for both, the `localStorage` and `sessionStorage`, APIs.
 	 * @param fileName path to the SQLite database file, or `:memory:` to act like sessionStorage.
 	 * @param options An object containing options for the event emitter.
 	 * @param options.emitter An instance of `EventEmitter` to use for dispatching storage events.
