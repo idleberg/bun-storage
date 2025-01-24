@@ -25,9 +25,14 @@
 ```js
 import { createLocalStorage, createSessionStorage } from 'bun-storage';
 
-const [ localStorage, eventEmitter ] = createLocalStorage('./db.sqlite');
-const [ sessionStorage, eventEmitter ] = createSessionStorage();
+const [ localStorage, localStorageEmitter ] = createLocalStorage('./db.sqlite');
+const [ sessionStorage, sessionStorageEmitter ] = createSessionStorage();
+
+// Listen for storage changes
+localStorageEmitter.on('storage', data => console.log('localStorage has changed', data));
+sessionStorageEmitter.on('storage', data => console.log('sessionStorage has changed', data));
 ```
+
 ## License
 
 This work is licensed under [The MIT License](https://opensource.org/licenses/MIT).
