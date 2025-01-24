@@ -14,9 +14,7 @@ type EventOptions = {
 	emitter?: EventEmitter;
 };
 
-type Storage = [StorageApi, EventEmitter];
-
-class StorageApi {
+export class Storage {
 	#db: Database;
 	#eventEmitter?: EventEmitter;
 
@@ -144,10 +142,10 @@ class StorageApi {
  * @param fileName path to the SQLite database file
  * @returns
  */
-export function createLocalStorage(fileName: string): Storage {
+export function createLocalStorage(fileName: string): [Storage, EventEmitter] {
 	const emitter = createEventEmitter();
 
-	const api = new StorageApi(fileName, {
+	const api = new Storage(fileName, {
 		emitter
 	});
 
@@ -161,10 +159,10 @@ export function createLocalStorage(fileName: string): Storage {
  * Returns an instance of `sessionStorage` that uses a memory to store data.
  * @returns
 */
-export function createSessionStorage(): Storage {
+export function createSessionStorage(): [Storage, EventEmitter] {
 	const emitter = createEventEmitter();
 
-	const api = new StorageApi(':memory:', {
+	const api = new Storage(':memory:', {
 		emitter,
 	});
 
