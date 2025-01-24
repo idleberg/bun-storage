@@ -21,8 +21,8 @@ const [ localStorage, localStorageEmitter ] = createLocalStorage('./db.sqlite');
 const [ sessionStorage, sessionStorageEmitter ] = createSessionStorage();
 
 // Listen for storage changes
-localStorageEmitter.on('storage', data => console.log('localStorage has changed', data));
-sessionStorageEmitter.on('storage', data => console.log('sessionStorage has changed', data));
+localStorageEmitter.addEventListener('storage', data => console.log('localStorage has changed', data));
+sessionStorageEmitter.addEventListener('storage', data => console.log('sessionStorage has changed', data));
 ```
 
 ## API
