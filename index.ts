@@ -108,7 +108,6 @@ class Storage {
 
 		this.#dispatchEvent(keyName, keyValue, oldValue);
 	}
-
 	#dispatchEvent(key: string | null, newValue: unknown, oldValue: string | null) {
 		if (!this.eventEmitter) {
 			return;
