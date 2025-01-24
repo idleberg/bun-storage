@@ -12,19 +12,6 @@
 
 ## Usage
 
-**Example:**
-
-```js
-import { createLocalStorage, createSessionStorage } from 'bun-storage';
-
-const [ localStorage, localEmitter ] = createLocalStorage('./db.sqlite');
-const [ sessionStorage, sessionEmitter ] = createSessionStorage();
-
-// Listen for storage changes
-localEmitter.addListener('storage', console.log);
-sessionEmitter.addListener('storage', console.log);
-```
-
 ## API
 
 ### createLocalStorage
@@ -34,6 +21,16 @@ Returns: `[Storage, EventEmitter]`
 
 Creates an instance of the [`localStorage`](https://developer.mozilla.org/docs/Web/API/Window/localStorage) API and a corresponding EventEmitter.
 
+**Example:**
+
+```typescript
+import { createLocalStorage } from 'bun-storage';
+
+const [ localStorage, emitter ] = createLocalStorage('./db.sqlite');
+
+// Listen for storage changes
+emitter.addListener('storage', console.log);
+```
 ### createSessionStorage
 
 Usage: `createSessionStorage()`  
@@ -41,11 +38,38 @@ Returns: `[Storage, EventEmitter]`
 
 Creates an instance of the [`sessionStorage`](https://developer.mozilla.org/docs/Web/API/Window/sessionStorage) API and a corresponding EventEmitter.
 
+**Example:**
+
+```typescript
+import { createSessionStorage } from 'bun-storage';
+
+const [ sessionStorage, emitter ] = createSessionStorage();
+
+// Listen for storage changes
+emitter.addListener('storage', console.log);
+```
+
 ### Storage
 
 Usage: `new Storage(filePath: string | ':memory:', options: StorageEventOptions)`
 
 This class is used internally by both of the above factory functions. However, instanting the class allows you more control over the EventEmitter, i.e. you pass an existing one from your application code.
+
+**Example:**
+
+```typescript
+import { Storage } from 'bun-storage';
+import EventEmitter from 'events';
+
+const myEmitter = new EventEmitter();
+
+const localStorage = new Storage('./db.sqlite', {
+	emitter: myEmitter
+});
+
+// Listen for storage changes
+myEmitter.addListener('storage', console.log);
+```
 
 ## License
 
