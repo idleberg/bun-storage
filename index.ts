@@ -179,7 +179,7 @@ export function createSessionStorage(): [Storage, EventEmitter] {
 }
 
 function createEventEmitter(): EventEmitter {
-	class StorageEventEmitter extends EventEmitter {}
+	class StorageEventEmitter extends EventEmitter { }
 
 	return new StorageEventEmitter();
 }
