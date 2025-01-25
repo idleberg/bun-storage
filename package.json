@@ -14,7 +14,6 @@
 		"README.md"
 	],
 	"scripts": {
-		"build": "bun build --target=bun --minify --sourcemap=external --outdir=dist ./index.ts",
 		"check": "bunx biome check ./",
 		"dev": "bun run build -- --watch",
 		"prepare": "husky",
