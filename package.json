@@ -14,7 +14,7 @@
 		"README.md"
 	],
 	"scripts": {
-		"check": "bunx biome check ./",
+		"check": "bunx biome check .",
 		"dev": "bun run build -- --watch",
 		"prepare": "husky",
 		"test": "bun test"
