@@ -4,10 +4,12 @@
 		"enabled": true
 	},
 	"files": {
-		"ignore": [
-			"dist/**",
-			"node_modules/**",
-			"demo.ts"
+		"include": [
+			".vscode/*.json",
+			"*.ts",
+			"biome.json",
+			"README.md",
+			"tsconfig.json"
 		]
 	},
 	"linter": {

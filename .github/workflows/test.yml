@@ -36,7 +36,7 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Lint Source
-        run: pnpm run --if-present lint
+        run: bun run lint
 
       - name: Build Source
         run: bun run build
