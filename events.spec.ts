@@ -2,9 +2,9 @@ import { beforeEach, expect, test } from 'bun:test';
 import { createLocalStorage, createSessionStorage } from './index.ts';
 
 // Helpers
-import { randomUUID } from "crypto";
-import { resolve } from 'path';
-import { tmpdir } from 'os';
+import { randomUUID } from 'node:crypto';
+import { tmpdir } from 'node:os';
+import { resolve } from 'node:path';
 
 const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 
@@ -15,13 +15,13 @@ const [sessionStorage, sessionStorageEmitter] = createSessionStorage();
 	{
 		type: 'localStorage',
 		storage: localStorage,
-		emitter: localStorageEmitter
+		emitter: localStorageEmitter,
 	},
 	{
 		type: 'sessionStorage',
 		storage: sessionStorage,
-		emitter: sessionStorageEmitter
-	}
+		emitter: sessionStorageEmitter,
+	},
 ].map(({ type, storage, emitter }) => {
 	beforeEach(() => {
 		emitter.removeAllListeners();
@@ -32,7 +32,7 @@ const [sessionStorage, sessionStorageEmitter] = createSessionStorage();
 		const key = randomUUID();
 
 		await new Promise<void>((resolve, reject) => {
-			emitter.addListener('storage', data => {
+			emitter.addListener('storage', (data) => {
 				try {
 					expect(data).toEqual({
 						key: null,
@@ -55,14 +55,14 @@ const [sessionStorage, sessionStorageEmitter] = createSessionStorage();
 		const key = randomUUID();
 
 		await new Promise<void>((resolve, reject) => {
-			emitter.addListener('storage', data => {
+			emitter.addListener('storage', (data) => {
 				try {
 					expect(data).toEqual({
 						key: 'demo',
 						newValue: key,
 						oldValue: null,
 						storageArea: {
-							'demo': key
+							demo: key,
 						},
 						url: undefined,
 					});
@@ -81,7 +81,7 @@ const [sessionStorage, sessionStorageEmitter] = createSessionStorage();
 		storage.setItem('demo', key);
 
 		await new Promise<void>((resolve, reject) => {
-			emitter.addListener('storage', data => {
+			emitter.addListener('storage', (data) => {
 				try {
 					expect(data).toEqual({
 						key: 'demo',
@@ -89,7 +89,7 @@ const [sessionStorage, sessionStorageEmitter] = createSessionStorage();
 						oldValue: key,
 						storageArea: {},
 						url: undefined,
-					})
+					});
 					resolve();
 				} catch (error) {
 					reject(error);

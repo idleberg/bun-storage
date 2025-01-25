@@ -1,5 +1,5 @@
 import { Database } from 'bun:sqlite';
-import EventEmitter from 'events';
+import EventEmitter from 'node:events';
 
 if (!process.versions.bun) {
 	throw ReferenceError('This library only runs using the Bun runtime. Find out more at https://bun.sh/.');
@@ -71,7 +71,7 @@ export class Storage {
 		try {
 			const item = this.#db.prepare('SELECT value FROM kv WHERE key = ?').get(keyName) as KeyValuePair;
 
-			return item['value'];
+			return item.value;
 		} catch (error) {
 			return null;
 		}
@@ -83,7 +83,7 @@ export class Storage {
 	 * @returns A string containing the name of the key. If the index does not exist, null is returned.
 	 */
 	key(index: unknown): string | null {
-		const normalizedIndex = parseInt(String(index), 10) || 0;
+		const normalizedIndex = Number.parseInt(String(index), 10) || 0;
 		const query = this.#db.prepare('SELECT key FROM kv ORDER BY key LIMIT 1 OFFSET ?');
 		const item = query.get(normalizedIndex) as KeyValuePair;
 
@@ -97,7 +97,7 @@ export class Storage {
 	get length(): number {
 		const rows = this.#db.prepare('SELECT COUNT(*) FROM kv').get() as Record<string, string>;
 
-		return parseInt(rows['COUNT(*)'], 10) || 0;
+		return Number.parseInt(rows['COUNT(*)'], 10) || 0;
 	}
 
 	/**
@@ -143,11 +143,11 @@ export class Storage {
 			key: key === null ? null : key,
 			newValue: newValue === null ? null : String(newValue),
 			oldValue,
-			storageArea: Object.fromEntries(storageArea.map(({ key, value }) => ([key, value]))),
+			storageArea: Object.fromEntries(storageArea.map(({ key, value }) => [key, value])),
 			url: undefined,
 		});
 	}
-};
+}
 
 /**
  * Returns an instance of `localStorage` that uses a SQLite database file to store data.
@@ -158,19 +158,16 @@ export function createLocalStorage(fileName: string): [Storage, EventEmitter] {
 	const emitter = createEventEmitter();
 
 	const api = new Storage(fileName, {
-		emitter
+		emitter,
 	});
 
-	return [
-		api,
-		emitter
-	];
+	return [api, emitter];
 }
 
 /**
  * Returns an instance of `sessionStorage` that uses a memory to store data.
  * @returns
-*/
+ */
 export function createSessionStorage(): [Storage, EventEmitter] {
 	const emitter = createEventEmitter();
 
@@ -178,14 +175,11 @@ export function createSessionStorage(): [Storage, EventEmitter] {
 		emitter,
 	});
 
-	return [
-		api,
-		emitter
-	];
+	return [api, emitter];
 }
 
 function createEventEmitter(): EventEmitter {
-	class StorageEventEmitter extends EventEmitter { };
+	class StorageEventEmitter extends EventEmitter {}
 
 	return new StorageEventEmitter();
 }

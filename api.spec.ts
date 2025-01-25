@@ -2,21 +2,21 @@ import { beforeEach, expect, test } from 'bun:test';
 import { createLocalStorage, createSessionStorage } from './index.ts';
 
 // Helpers
-import { randomUUID } from "crypto";
-import { resolve } from 'path';
-import { tmpdir } from 'os';
+import { randomUUID } from 'node:crypto';
+import { tmpdir } from 'node:os';
+import { resolve } from 'node:path';
 
 const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 
 [
 	{
 		type: 'localStorage',
-		storage: createLocalStorage(dbFile)[0]
+		storage: createLocalStorage(dbFile)[0],
 	},
 	{
 		type: 'sessionStorage',
-		storage: createSessionStorage()[0]
-	}
+		storage: createSessionStorage()[0],
+	},
 ].map(({ type, storage }) => {
 	beforeEach(() => {
 		storage.clear();
