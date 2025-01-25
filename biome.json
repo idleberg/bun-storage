@@ -1,0 +1,32 @@
+{
+	"$schema": "https://biomejs.dev/schemas/1.6.4/schema.json",
+	"organizeImports": {
+		"enabled": true
+	},
+	"files": {
+		"ignore": [
+			"dist/**",
+			"node_modules/**",
+			"demo.ts"
+		]
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"a11y": {
+				"noAccessKey": "warn",
+				"noAutofocus": "warn"
+			},
+			"complexity": {
+				"noForEach": "warn"
+			}
+		}
+	},
+	"javascript": {
+		"formatter": {
+			"lineWidth": 120,
+			"quoteStyle": "single"
+		}
+	}
+}
