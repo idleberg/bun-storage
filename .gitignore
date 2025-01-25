@@ -1,6 +1,6 @@
 node_modules/
 package-lock.json
-pnpm-lock.json
+pnpm-lock.yaml
 yarn.lock
 
 dist/
