@@ -15,8 +15,8 @@
 	],
 	"scripts": {
 		"build": "bun build --target=bun --minify --sourcemap=external --outdir=dist ./index.ts",
+		"check": "bunx biome check ./",
 		"dev": "bun run build -- --watch",
-		"lint": "biome lint *.ts",
 		"prepare": "husky",
 		"test": "bun test"
 	},

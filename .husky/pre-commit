@@ -1,1 +1,1 @@
-bun run lint --staged --fix
+bunx biome check --fix
