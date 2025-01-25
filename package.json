@@ -8,11 +8,7 @@
 		"bun": ">=1.0.0",
 		"node": ">=20"
 	},
-	"files": [
-		"index.ts",
-		"LICENSE",
-		"README.md"
-	],
+	"files": ["index.ts", "LICENSE", "README.md"],
 	"scripts": {
 		"build": "bun build --target=bun --minify --sourcemap=external --outdir=dist ./index.ts",
 		"dev": "bun run build -- --watch",
