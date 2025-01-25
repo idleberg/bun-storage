@@ -38,8 +38,5 @@ jobs:
       - name: Lint Source
         run: bun run check
 
-      - name: Build Source
-        run: bun run build
-
       - name: Run Tests
         run: bun run test
