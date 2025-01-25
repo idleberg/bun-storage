@@ -28,52 +28,75 @@ const [sessionStorage, sessionStorageEmitter] = createSessionStorage();
 		storage.clear();
 	});
 
-	test(`${type}.clear()`, () => {
-		emitter.addListener('storage', data => {
-			expect(data).toEqual({
-				key: null,
-				newValue: null,
-				oldValue: null,
-				storageArea: {},
-				url: undefined,
-			})
-		});
-
-		storage.clear();
-	});
-
-	test(`${type}.setItem()`, () => {
+	test(`${type}.clear()`, async () => {
 		const key = randomUUID();
 
-		emitter.addListener('storage', data => {
-			expect(data).toEqual({
-				key: 'demo',
-				newValue: key,
-				oldValue: null,
-				storageArea: {
-					'demo': key
-				},
-				url: undefined,
-			})
-		});
+		await new Promise<void>((resolve, reject) => {
+			emitter.addListener('storage', data => {
+				try {
+					expect(data).toEqual({
+						key: null,
+						newValue: null,
+						oldValue: null,
+						storageArea: {},
+						url: undefined,
+					});
+					resolve();
+				} catch (error) {
+					reject(error);
+				}
+			});
 
-		storage.setItem('demo', key);
+			storage.clear();
+		});
 	});
 
-	test(`${type}.removeItem()`, () => {
+	test(`${type}.setItem()`, async () => {
+		const key = randomUUID();
+
+		await new Promise<void>((resolve, reject) => {
+			emitter.addListener('storage', data => {
+				try {
+					expect(data).toEqual({
+						key: 'demo',
+						newValue: key,
+						oldValue: null,
+						storageArea: {
+							'demo': key
+						},
+						url: undefined,
+					});
+					resolve();
+				} catch (error) {
+					reject(error);
+				}
+			});
+
+			storage.setItem('demo', key);
+		});
+	});
+
+	test(`${type}.removeItem()`, async () => {
 		const key = randomUUID();
 		storage.setItem('demo', key);
 
-		emitter.addListener('storage', data => {
-			expect(data).toEqual({
-				key: 'demo',
-				newValue: null,
-				oldValue: key,
-				storageArea: {},
-				url: undefined,
-			})
-		});
+		await new Promise<void>((resolve, reject) => {
+			emitter.addListener('storage', data => {
+				try {
+					expect(data).toEqual({
+						key: 'demo',
+						newValue: null,
+						oldValue: key,
+						storageArea: {},
+						url: undefined,
+					})
+					resolve();
+				} catch (error) {
+					reject(error);
+				}
+			});
 
-		storage.removeItem('demo');
+			storage.removeItem('demo');
+		});
 	});
 });
