@@ -12,9 +12,9 @@
 
 ## Usage
 
-## API
+### API
 
-### createLocalStorage
+#### createLocalStorage
 
 Usage: `createLocalStorage(dbFile: string)`  
 Returns: `[Storage, EventEmitter]`  
@@ -29,9 +29,9 @@ import { createLocalStorage } from 'bun-storage';
 const [ localStorage, emitter ] = createLocalStorage('./db.sqlite');
 
 // Listen for storage changes
-emitter.addListener('storage', console.log);
+emitter.on('storage', console.log);
 ```
-### createSessionStorage
+#### createSessionStorage
 
 Usage: `createSessionStorage()`  
 Returns: `[Storage, EventEmitter]`  
@@ -46,10 +46,10 @@ import { createSessionStorage } from 'bun-storage';
 const [ sessionStorage, emitter ] = createSessionStorage();
 
 // Listen for storage changes
-emitter.addListener('storage', console.log);
+emitter.on('storage', console.log);
 ```
 
-### Storage
+#### Storage
 
 Usage: `new Storage(filePath: string | ':memory:', options: StorageEventOptions)`
 
@@ -68,7 +68,7 @@ const localStorage = new Storage('./db.sqlite', {
 });
 
 // Listen for storage changes
-myEmitter.addListener('storage', console.log);
+myEmitter.on('storage', console.log);
 ```
 
 ## License
