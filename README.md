@@ -14,7 +14,7 @@
 
 ### API
 
-#### createLocalStorage
+#### `createLocalStorage`
 
 Usage: `createLocalStorage(dbFile: string)`  
 Returns: `[Storage, EventEmitter]`  
@@ -31,7 +31,7 @@ const [ localStorage, emitter ] = createLocalStorage('./db.sqlite');
 // Listen for storage changes
 emitter.on('storage', console.log);
 ```
-#### createSessionStorage
+#### `createSessionStorage`
 
 Usage: `createSessionStorage()`  
 Returns: `[Storage, EventEmitter]`  
@@ -49,7 +49,7 @@ const [ sessionStorage, emitter ] = createSessionStorage();
 emitter.on('storage', console.log);
 ```
 
-#### Storage
+#### `Storage` (Advanced Usage)
 
 Usage: `new Storage(filePath: string | ':memory:', options: StorageEventOptions)`
 
