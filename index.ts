@@ -29,7 +29,7 @@ export class Storage {
 	 * @throws {TypeError} If the `emitter` option is provided and is not an instance of `EventEmitter`.
 	 * @returns A new instance of `Storage`.
 	 */
-	constructor(fileName: string, options: EventOptions = {}) {
+	constructor(fileName: string | ':memory:', options: EventOptions = {}) {
 		if (options.emitter && !(options.emitter instanceof EventEmitter)) {
 			throw new TypeError('The emitter option must be an instance of EventEmitter.');
 		}
@@ -179,7 +179,7 @@ export function createSessionStorage(): [Storage, EventEmitter] {
 }
 
 function createEventEmitter(): EventEmitter {
-	class StorageEventEmitter extends EventEmitter {}
+	class StorageEventEmitter extends EventEmitter { }
 
 	return new StorageEventEmitter();
 }
