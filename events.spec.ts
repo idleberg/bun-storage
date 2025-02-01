@@ -29,8 +29,6 @@ const [sessionStorage, sessionStorageEmitter] = createSessionStorage();
 	});
 
 	test(`${type}.clear()`, async () => {
-		const key = randomUUID();
-
 		await new Promise<void>((resolve, reject) => {
 			emitter.addListener('storage', (data) => {
 				try {
