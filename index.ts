@@ -67,7 +67,15 @@ export class Storage {
 	 * @param keyName A string containing the name of the key you want to retrieve the value of.
 	 * @returns A string containing the value of the key. If the key does not exist, `null` is returned.
 	 */
-	getItem(keyName: string): string | null {
+	getItem(...args: [keyName: string]): string | null {
+		if (args.length !== 1) {
+			throw new TypeError(
+				`Failed to execute "getItem" on "${this.constructor.name}": 1 arguments required, but only ${args.length} present.`,
+			);
+		}
+
+		const [keyName] = args;
+
 		try {
 			const item = this.#db.prepare('SELECT value FROM kv WHERE key = ?').get(keyName) as KeyValuePair;
 
@@ -82,7 +90,15 @@ export class Storage {
 	 * @param index An integer representing the number of the key you want to get the name of. This is a zero-based index.
 	 * @returns A string containing the name of the key. If the index does not exist, null is returned.
 	 */
-	key(index: unknown): string | null {
+	key(...args: [keyName: unknown]): string | null {
+		if (args.length !== 1) {
+			throw new TypeError(
+				`Failed to execute "key" on "${this.constructor.name}": 1 arguments required, but only ${args.length} present.`,
+			);
+		}
+
+		const [index] = args;
+
 		const normalizedIndex = Number.parseInt(String(index), 10) || 0;
 		const query = this.#db.prepare('SELECT key FROM kv ORDER BY key LIMIT 1 OFFSET ?');
 		const item = query.get(normalizedIndex) as KeyValuePair;
@@ -104,7 +120,15 @@ export class Storage {
 	 * The `removeItem()` method of the `Storage` interface, when passed a key name, will remove that key from the given `Storage` object if it exists. The `Storage` interface of the Web Storage API provides access to a particular domain's session or local storage.
 	 * @param keyName A string containing the name of the key you want to remove.
 	 */
-	removeItem(keyName: string): void {
+	removeItem(...args: [keyName: string]): void {
+		if (args.length !== 1) {
+			throw new TypeError(
+				`Failed to execute "removeItem" on "${this.constructor.name}": 1 arguments required, but only ${args.length} present.`,
+			);
+		}
+
+		const [keyName] = args;
+
 		const oldValue = this.getItem(keyName);
 
 		this.#db.prepare('DELETE FROM kv WHERE key = ?').run(keyName);
@@ -117,7 +141,14 @@ export class Storage {
 	 * @param keyName A string containing the name of the key you want to create/update.
 	 * @param keyValue A string containing the value you want to give the key you are creating/updating.
 	 */
-	setItem(keyName: string, keyValue: unknown): void {
+	setItem(...args: [keyName: string, keyValue: unknown]): void {
+		if (args.length !== 2) {
+			throw new TypeError(
+				`Failed to execute "setItem" on "${this.constructor.name}": 2 arguments required, but only ${args.length} present.`,
+			);
+		}
+
+		const [keyName, keyValue] = args;
 		const oldValue = this.getItem(keyName);
 
 		this.#db.prepare('REPLACE INTO kv (key, value) VALUES (?, ?)').run(String(keyName), String(keyValue));

@@ -66,7 +66,7 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 		expect(actual).toBe(null);
 	});
 
-	test(`${type}.length() - 0`, () => {
+	test(`${type}.length - 0`, () => {
 		storage.setItem('demo', 'Hello, world!');
 		storage.clear();
 
@@ -76,7 +76,7 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 		expect(actual).toBe(expected);
 	});
 
-	test(`${type}.length() - 1`, () => {
+	test(`${type}.length - 1`, () => {
 		storage.setItem('demo', 'Hello, world!');
 
 		const actual = storage.length;
@@ -155,5 +155,26 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 		const actual = storage.getItem('demo');
 
 		expect(actual).toBe(String(expected));
+	});
+
+	test(`${type}.getItem() - Throws Error`, () => {
+		// @ts-expect-error Omitting the argument for the test
+		expect(() => storage.getItem()).toThrow(
+			`Failed to execute "getItem" on "Storage": 1 arguments required, but only 0 present.`,
+		);
+	});
+
+	test(`${type}.removeItem() - Throws Error`, () => {
+		// @ts-expect-error Omitting the argument for the test
+		expect(() => storage.removeItem()).toThrow(
+			`Failed to execute "removeItem" on "Storage": 1 arguments required, but only 0 present.`,
+		);
+	});
+
+	test(`${type}.setItem() - Throws Error`, () => {
+		// @ts-expect-error Omitting the argument for the test
+		expect(() => storage.setItem()).toThrow(
+			`Failed to execute "setItem" on "Storage": 2 arguments required, but only 0 present.`,
+		);
 	});
 });
