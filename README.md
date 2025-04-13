@@ -17,36 +17,37 @@
 #### `createLocalStorage`
 
 Usage: `createLocalStorage(dbFile: string)`  
-Returns: `[Storage, EventEmitter]`  
+Returns: `[Storage, EventEmitter]`
 
 Creates an instance of the [`localStorage`](https://developer.mozilla.org/docs/Web/API/Window/localStorage) API and a corresponding EventEmitter.
 
 **Example:**
 
 ```typescript
-import { createLocalStorage } from 'bun-storage';
+import { createLocalStorage } from "bun-storage";
 
-const [ localStorage, emitter ] = createLocalStorage('./db.sqlite');
+const [localStorage, emitter] = createLocalStorage("./db.sqlite");
 
 // Listen for storage changes
-emitter.on('storage', console.log);
+emitter.on("storage", console.log);
 ```
+
 #### `createSessionStorage`
 
 Usage: `createSessionStorage()`  
-Returns: `[Storage, EventEmitter]`  
+Returns: `[Storage, EventEmitter]`
 
 Creates an instance of the [`sessionStorage`](https://developer.mozilla.org/docs/Web/API/Window/sessionStorage) API and a corresponding EventEmitter.
 
 **Example:**
 
 ```typescript
-import { createSessionStorage } from 'bun-storage';
+import { createSessionStorage } from "bun-storage";
 
-const [ sessionStorage, emitter ] = createSessionStorage();
+const [sessionStorage, emitter] = createSessionStorage();
 
 // Listen for storage changes
-emitter.on('storage', console.log);
+emitter.on("storage", console.log);
 ```
 
 #### `Storage` (Advanced Usage)
@@ -58,18 +59,22 @@ This class is used internally by both of the above factory functions. However, i
 **Example:**
 
 ```typescript
-import { Storage } from 'bun-storage';
-import EventEmitter from 'events';
+import { Storage } from "bun-storage";
+import EventEmitter from "events";
 
 const myEmitter = new EventEmitter();
 
-const localStorage = new Storage('./db.sqlite', {
-	emitter: myEmitter
+const localStorage = new Storage("./db.sqlite", {
+    emitter: myEmitter,
 });
 
 // Listen for storage changes
-myEmitter.on('storage', console.log);
+myEmitter.on("storage", console.log);
 ```
+
+## Related
+
+-   [`@idleberg/local-storage`](https://www.npmjs.com/package/@idleberg/local-storage): a NodeJS implementation of this package
 
 ## License
 
