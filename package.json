@@ -1,6 +1,6 @@
 {
 	"name": "bun-storage",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"description": "A ponyfill for the Storage API, utilizing SQLite",
 	"exports": "./index.ts",
 	"type": "module",
