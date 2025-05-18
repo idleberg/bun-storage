@@ -16,7 +16,7 @@
 	"scripts": {
 		"check": "bunx biome check .",
 		"dev": "bun run build -- --watch",
-		"prepare": "husky",
+		"prepare": "lefthook install",
 		"test": "bun test"
 	},
 	"keywords": [
@@ -38,6 +38,6 @@
 		"@commitlint/config-conventional": "^19.6.0",
 		"@types/node": "^22.10.10",
 		"bun-types": "^1.2.0",
-		"husky": "^9.1.7"
+		"lefthook": "^1.11.13"
 	}
 }
