@@ -6,7 +6,8 @@
 	"files": {
 		"include": [
 			".vscode/*.json",
-			"*.ts",
+			"packages/src/*.ts",
+			"packages/test/*.ts",
 			"biome.json",
 			"README.md",
 			"tsconfig.json"
@@ -16,10 +17,6 @@
 		"enabled": true,
 		"rules": {
 			"recommended": true,
-			"a11y": {
-				"noAccessKey": "warn",
-				"noAutofocus": "warn"
-			},
 			"complexity": {
 				"noForEach": "warn"
 			}
