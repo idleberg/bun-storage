@@ -74,7 +74,7 @@ myEmitter.on("storage", console.log);
 
 ## Related
 
--   [`@idleberg/local-storage`](https://www.npmjs.com/package/@idleberg/local-storage): a NodeJS implementation of this package
+-   [@idleberg/local-storage](https://www.npmjs.com/package/@idleberg/local-storage): a NodeJS implementation of this package
 
 ## License
 
