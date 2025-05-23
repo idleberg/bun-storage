@@ -1,11 +1,18 @@
 {
 	"bun.debugTerminal.enabled": true,
 	"bun.test.filePattern": "**/*.spec.ts",
+	"editor.formatOnPaste": true,
 	"editor.formatOnSave": true,
 	"[javascript]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	},
 	"[json]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescript]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	}
 }
