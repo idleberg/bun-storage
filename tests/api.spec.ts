@@ -164,6 +164,13 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 		);
 	});
 
+	test(`${type}.key() - Throws Error`, () => {
+		// @ts-expect-error Omitting the argument for the test
+		expect(() => storage.key()).toThrow(
+			`Failed to execute "key" on "Storage": 1 arguments required, but only 0 present.`,
+		);
+	});
+
 	test(`${type}.removeItem() - Throws Error`, () => {
 		// @ts-expect-error Omitting the argument for the test
 		expect(() => storage.removeItem()).toThrow(
