@@ -17,6 +17,7 @@
 		"check": "bunx biome check .",
 		"dev": "bun run build -- --watch",
 		"prepare": "lefthook install",
+		"publish": "np --any-branch",
 		"test": "bun test"
 	},
 	"keywords": [
@@ -38,6 +39,7 @@
 		"@commitlint/config-conventional": "^19.8.1",
 		"@types/node": "^22.15.29",
 		"bun-types": "^1.2.15",
-		"lefthook": "^1.11.13"
+		"lefthook": "^1.11.13",
+		"np": "^10.2.0"
 	}
 }
