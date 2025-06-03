@@ -4,16 +4,16 @@ on:
   push:
     paths:
       - ".github/**"
-      - "bun.lockb"
       - "*.spec.ts"
+      - "bun.lockb"
       - "index.ts"
       - "package.json"
       - "ts.config"
   pull_request:
     paths:
       - ".github/**"
-      - "bun.lockb"
       - "*.spec.ts"
+      - "bun.lockb"
       - "index.ts"
       - "package.json"
       - "ts.config"
