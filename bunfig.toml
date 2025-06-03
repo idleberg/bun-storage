@@ -2,3 +2,4 @@ telemetry = false
 
 [test]
 coverage = true
+root = './tests'
