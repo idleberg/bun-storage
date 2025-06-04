@@ -184,4 +184,11 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 			`Failed to execute "setItem" on "Storage": 2 arguments required, but only 0 present.`,
 		);
 	});
+
+	test(`${type}.constructor - Throws Error`, () => {
+		const fileName = type === 'localStorage' ? dbFile : ':memory:';
+
+		// @ts-expect-error Omitting the argument for the test
+		expect(() => new Storage(fileName, {}).toThrow('The emitter option must be an instance of EventEmitter.'));
+	});
 });
