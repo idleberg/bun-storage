@@ -6,6 +6,13 @@
 [![Version](https://img.shields.io/npm/v/bun-storage?style=for-the-badge)](https://www.npmjs.org/package/bun-storage)
 [![Build](https://img.shields.io/github/actions/workflow/status/idleberg/bun-storage/test.yml?style=for-the-badge)](https://github.com/idleberg/bun-storage/actions)
 
+## Features
+
+-   zero dependencies
+-   fully API compatible to both, `localStorage` and `sessionStorage`
+-   persists data across sessions
+-   supports `storage` events
+
 ## Installation
 
 `bun install bun-storage`
