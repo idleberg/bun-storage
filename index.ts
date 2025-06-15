@@ -11,7 +11,7 @@ type KeyValuePair = {
 };
 
 type EventOptions = {
-	emitter?: EventEmitter;
+	emitter: EventEmitter;
 	eventName?: string;
 };
 
