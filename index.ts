@@ -188,11 +188,11 @@ export class Storage {
 export function createLocalStorage(fileName: string): [Storage, EventEmitter] {
 	const emitter = new EventEmitter();
 
-	const api = new Storage(fileName, {
+	const storage = new Storage(fileName, {
 		emitter,
 	});
 
-	return [api, emitter];
+	return [storage, emitter];
 }
 
 /**
@@ -202,9 +202,9 @@ export function createLocalStorage(fileName: string): [Storage, EventEmitter] {
 export function createSessionStorage(): [Storage, EventEmitter] {
 	const emitter = new EventEmitter();
 
-	const api = new Storage(':memory:', {
+	const storage = new Storage(':memory:', {
 		emitter,
 	});
 
-	return [api, emitter];
+	return [storage, emitter];
 }
