@@ -1,5 +1,5 @@
 import { beforeEach, expect, test } from 'bun:test';
-import { createLocalStorage, createSessionStorage } from '../index.ts';
+import { createLocalStorage, createSessionStorage, createStorages } from '../index.ts';
 
 // Helpers
 import { randomUUID } from 'node:crypto';
@@ -10,6 +10,7 @@ const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 
 const [localStorage, localStorageEmitter] = createLocalStorage(dbFile);
 const [sessionStorage, sessionStorageEmitter] = createSessionStorage();
+const storages = createStorages(dbFile);
 
 [
 	{
@@ -21,6 +22,16 @@ const [sessionStorage, sessionStorageEmitter] = createSessionStorage();
 		type: 'sessionStorage',
 		storage: sessionStorage,
 		emitter: sessionStorageEmitter,
+	},
+	{
+		type: 'storages.localStorage',
+		storage: storages.localStorage,
+		emitter: storages.emitter,
+	},
+	{
+		type: 'storages.sessionStorage',
+		storage: storages.sessionStorage,
+		emitter: storages.emitter,
 	},
 ].map(({ type, storage, emitter }) => {
 	beforeEach(() => {

@@ -26,7 +26,7 @@
 Usage: `createLocalStorage(dbFile: string)`  
 Returns: `[Storage, EventEmitter]`
 
-Creates an instance of the [`localStorage`](https://developer.mozilla.org/docs/Web/API/Window/localStorage) API and a corresponding EventEmitter.
+Creates an instance of the [`localStorage`][] API, and a corresponding EventEmitter.
 
 **Example:**
 
@@ -44,7 +44,25 @@ emitter.on("storage", console.log);
 Usage: `createSessionStorage()`  
 Returns: `[Storage, EventEmitter]`
 
-Creates an instance of the [`sessionStorage`](https://developer.mozilla.org/docs/Web/API/Window/sessionStorage) API and a corresponding EventEmitter.
+Creates an instance of the [`sessionStorage`][] API, and a corresponding EventEmitter.
+
+**Example:**
+
+```typescript
+import { createSessionStorage } from "bun-storage";
+
+const [sessionStorage, emitter] = createSessionStorage();
+
+// Listen for storage changes
+emitter.on("storage", console.log);
+```
+
+#### `createStorages`
+
+Usage: `createStorages()`  
+Returns: `{ sessionStorage, localStorage, emitter }`
+
+Returns instances of both, [`sessionStorage`][] and [`localStorage`][], and a corresponding EventEmitter.
 
 **Example:**
 
@@ -86,3 +104,6 @@ myEmitter.on("storage", console.log);
 ## License
 
 This work is licensed under [The MIT License](https://opensource.org/licenses/MIT).
+
+[`localStorage`]: https://developer.mozilla.org/docs/Web/API/Window/localStorage
+[`sessionStorage`]: https://developer.mozilla.org/docs/Web/API/Window/sessionStorage
