@@ -196,7 +196,7 @@ export function createLocalStorage(fileName: string): [Storage, EventEmitter] {
 }
 
 /**
- * Returns an instance of `sessionStorage` that uses a memory to store data.
+ * Returns an instance of `sessionStorage` that uses memory to store data.
  * @returns
  */
 export function createSessionStorage(): [Storage, EventEmitter] {
