@@ -214,7 +214,7 @@ export function createSessionStorage(): [Storage, EventEmitter] {
  * @param fileName path to the SQLite database file
  * @returns
  */
-export function createStorages(fileName: string): {
+export function createStorage(fileName: string): {
 	sessionStorage: Storage;
 	localStorage: Storage;
 	emitter: EventEmitter;

@@ -57,9 +57,9 @@ const [sessionStorage, emitter] = createSessionStorage();
 emitter.on("storage", console.log);
 ```
 
-#### `createStorages`
+#### `createStorage`
 
-Usage: `createStorages()`  
+Usage: `createStorage()`  
 Returns: `{ sessionStorage, localStorage, emitter }`
 
 Returns instances of both, [`sessionStorage`][] and [`localStorage`][], and a corresponding EventEmitter.
