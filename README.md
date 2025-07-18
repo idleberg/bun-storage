@@ -62,7 +62,7 @@ emitter.on("storage", console.log);
 Usage: `createStorage()`  
 Returns: `[{ sessionStorage, localStorage, emitter }`
 
-Returns instances of both, [`sessionStorage`][] and [`localStorage`][], and a corresponding EventEmitter.
+For your convenience, this creates instances of both, [`sessionStorage`][] and [`localStorage`][], as well as a corresponding EventEmitter.
 
 **Example:**
 
