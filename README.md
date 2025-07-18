@@ -57,9 +57,9 @@ const [sessionStorage, emitter] = createSessionStorage();
 emitter.on("storage", console.log);
 ```
 
-#### `createStorage`
+#### `createStorages`
 
-Usage: `createStorage()`  
+Usage: `createStorages()`  
 Returns: `{ sessionStorage, localStorage, emitter }`
 
 For your convenience, this third factory function covers all storage APIs. Creates instances of both, [`sessionStorage`][] and [`localStorage`][], as well as a corresponding EventEmitter.
@@ -67,9 +67,9 @@ For your convenience, this third factory function covers all storage APIs. Creat
 **Example:**
 
 ```typescript
-import { createStorage } from "bun-storage";
+import { createStorages } from "bun-storage";
 
-const { sessionStorage, localStorage, emitter } = createStorage("./db.sqlite");
+const { sessionStorage, localStorage, emitter } = createStorages("./db.sqlite");
 
 // Listen for storage changes
 emitter.on("storage", console.log);
