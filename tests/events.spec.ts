@@ -1,10 +1,9 @@
 import { beforeEach, expect, test } from 'bun:test';
-import { createLocalStorage, createSessionStorage, createStorage } from '../index.ts';
-
 // Helpers
 import { randomUUID } from 'node:crypto';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
+import { createLocalStorage, createSessionStorage, createStorage } from '../index.ts';
 
 const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 
