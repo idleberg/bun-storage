@@ -67,12 +67,9 @@ Returns instances of both, [`sessionStorage`][] and [`localStorage`][], and a co
 **Example:**
 
 ```typescript
-import { createSessionStorage } from "bun-storage";
+import { createStorage } from "bun-storage";
 
-const [sessionStorage, emitter] = createSessionStorage();
-
-// Listen for storage changes
-emitter.on("storage", console.log);
+const { sessionStorage, localStorage, emitter } = createStorage("./db.sqlite");
 ```
 
 #### `Storage` (Advanced Usage)
