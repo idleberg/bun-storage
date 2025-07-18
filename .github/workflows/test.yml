@@ -4,19 +4,19 @@ on:
   push:
     paths:
       - ".github/**"
-      - "*.spec.ts"
+      - "**/*.spec.ts"
       - "bun.lockb"
       - "index.ts"
       - "package.json"
-      - "ts.config"
+      - "tsconfig.json"
   pull_request:
     paths:
       - ".github/**"
-      - "*.spec.ts"
+      - "**/*.spec.ts"
       - "bun.lockb"
       - "index.ts"
       - "package.json"
-      - "ts.config"
+      - "tsconfig.json"
   workflow_dispatch:
 
 jobs:
