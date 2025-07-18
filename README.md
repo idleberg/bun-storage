@@ -60,7 +60,7 @@ emitter.on("storage", console.log);
 #### `createStorage`
 
 Usage: `createStorage()`  
-Returns: `[{ sessionStorage, localStorage, emitter }`
+Returns: `{ sessionStorage, localStorage, emitter }`
 
 For your convenience, this third factory function covers all storage APIs. Creates instances of both, [`sessionStorage`][] and [`localStorage`][], as well as a corresponding EventEmitter.
 
