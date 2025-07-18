@@ -37,7 +37,7 @@
 		"@biomejs/biome": "^2.1.2",
 		"@commitlint/cli": "^19.8.1",
 		"@commitlint/config-conventional": "^19.8.1",
-		"@types/node": "^22.16.4",
+		"@types/node": "^24.0.14",
 		"bun-types": "^1.2.18",
 		"lefthook": "^1.12.2",
 		"np": "^10.2.0"
