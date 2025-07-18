@@ -1,5 +1,8 @@
 telemetry = false
 
+[define]
+"process.env.COREPACK_ENABLE_AUTO_PIN" = "'0'"
+
 [test]
 coverage = true
 root = './tests'
