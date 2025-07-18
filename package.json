@@ -14,7 +14,7 @@
 		"README.md"
 	],
 	"scripts": {
-		"check": "bunx biome check .",
+		"check": "biome check --no-errors-on-unmatched --vcs-enabled=true --vcs-use-ignore-file=true",
 		"dev": "bun run build -- --watch",
 		"prepare": "lefthook install",
 		"publish": "np --any-branch",
@@ -34,12 +34,13 @@
 		"url": "https://github.com/idleberg/bun-storage.git"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^1.9.4",
+		"@biomejs/biome": "^2.1.2",
 		"@commitlint/cli": "^19.8.1",
 		"@commitlint/config-conventional": "^19.8.1",
-		"@types/node": "^22.15.29",
-		"bun-types": "^1.2.16",
-		"lefthook": "^1.11.13",
+		"@types/node": "^22.16.4",
+		"bun-types": "^1.2.18",
+		"lefthook": "^1.12.2",
 		"np": "^10.2.0"
-	}
+	},
+	"packageManager": "pnpm@9.15.9+sha512.68046141893c66fad01c079231128e9afb89ef87e2691d69e4d40eee228988295fd4682181bae55b58418c3a253bde65a505ec7c5f9403ece5cc3cd37dcf2531"
 }
