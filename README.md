@@ -70,6 +70,9 @@ Returns instances of both, [`sessionStorage`][] and [`localStorage`][], and a co
 import { createStorage } from "bun-storage";
 
 const { sessionStorage, localStorage, emitter } = createStorage("./db.sqlite");
+
+// Listen for storage changes
+emitter.on("storage", console.log);
 ```
 
 #### `Storage` (Advanced Usage)
