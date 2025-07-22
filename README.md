@@ -42,7 +42,7 @@ emitter.on("storage", console.log);
 #### `createSessionStorage`
 
 Usage: `createSessionStorage()`  
-Returns: `{ Storage, Storage, EventEmitter }`
+Returns: `[Storage, EventEmitter]`
 
 Creates an instance of the [`sessionStorage`][] API, and a corresponding EventEmitter.
 
@@ -60,7 +60,7 @@ emitter.on("storage", console.log);
 #### `createStorages`
 
 Usage: `createStorages(dbFile: string)`  
-Returns: `{ sessionStorage, localStorage, emitter }`
+Returns: `{ sessionStorage: Storage, localStorage: Storage, emitter: EventEmitter }`
 
 Creates instances of both, [`sessionStorage`][] and [`localStorage`][], as well as a corresponding EventEmitter.
 
