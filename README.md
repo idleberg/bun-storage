@@ -79,7 +79,7 @@ emitter.on("storage", console.log);
 
 Usage: `new Storage(filePath: string | ':memory:', options: StorageEventOptions)`
 
-This class is used internally by both of the above factory functions. However, instantiating the class allows you more control over the EventEmitter, i.e. you could re-use an existing one from your application code.
+This class is used internally by the above factory functions. Instantiating it class allows you more control over the EventEmitter, e.g. you could re-use an existing one from your application code.
 
 **Example:**
 
