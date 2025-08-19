@@ -15,7 +15,13 @@
 
 ## Installation
 
-`bun install bun-storage`
+```sh
+# npm
+bun install bun-storage
+
+# JSR
+bunx jsr add @idleberg/bun-storage
+```
 
 ## Usage
 
