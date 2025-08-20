@@ -28,6 +28,7 @@ jobs:
             ~/.deno
             ~/.cache/deno
           key: ${{ runner.os }}-deno-${{ hashFiles('**/pnpm-lock.yaml') }}
+
       - run: |
           deno publish --dry-run
           deno publish
