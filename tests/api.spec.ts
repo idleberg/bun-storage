@@ -8,7 +8,7 @@ import { createLocalStorage, createSessionStorage, createStorages, Storage } fro
 const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 const storages = createStorages(dbFile);
 
-[
+const implementations = [
 	{
 		type: 'localStorage',
 		storage: createLocalStorage(dbFile)[0],
@@ -25,7 +25,9 @@ const storages = createStorages(dbFile);
 		type: 'storages.sessionStorage',
 		storage: storages.sessionStorage,
 	},
-].map(({ type, storage }) => {
+];
+
+for (const { type, storage } of implementations) {
 	beforeEach(() => {
 		storage.clear();
 	});
@@ -199,4 +201,4 @@ const storages = createStorages(dbFile);
 		// @ts-expect-error Omitting the argument for the test
 		expect(() => new Storage(fileName, {}).toThrow('The emitter option must be an instance of EventEmitter.'));
 	});
-});
+}

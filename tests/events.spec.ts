@@ -11,7 +11,7 @@ const [localStorage, localStorageEmitter] = createLocalStorage(dbFile);
 const [sessionStorage, sessionStorageEmitter] = createSessionStorage();
 const storages = createStorages(dbFile);
 
-[
+const implementations = [
 	{
 		type: 'localStorage',
 		storage: localStorage,
@@ -32,7 +32,9 @@ const storages = createStorages(dbFile);
 		storage: storages.sessionStorage,
 		emitter: storages.emitter,
 	},
-].map(({ type, storage, emitter }) => {
+];
+
+for (const { type, storage, emitter } of implementations) {
 	beforeEach(() => {
 		emitter.removeAllListeners();
 		storage.clear();
@@ -107,4 +109,4 @@ const storages = createStorages(dbFile);
 			storage.removeItem('demo');
 		});
 	});
-});
+}
