@@ -30,5 +30,6 @@ jobs:
           key: ${{ runner.os }}-deno-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - run: |
+          deno install
           deno publish --dry-run
           deno publish
