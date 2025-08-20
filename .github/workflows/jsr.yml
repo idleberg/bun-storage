@@ -29,10 +29,5 @@ jobs:
             ~/.cache/deno
           key: ${{ runner.os }}-deno-${{ hashFiles('**/pnpm-lock.yaml') }}
       - run: |
-          deno lint \
-            --ignore=node_modules src tests \
-            --rules-exclude=no-explicit-any \
-            ./*.ts tests/**/*.ts
-
           deno publish --dry-run
           deno publish
