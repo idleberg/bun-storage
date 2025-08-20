@@ -20,7 +20,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  default:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
