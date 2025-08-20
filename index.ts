@@ -1,3 +1,4 @@
+// deno-lint-ignore-file
 import { Database } from 'bun:sqlite';
 import EventEmitter from 'node:events';
 import process from 'node:process';
