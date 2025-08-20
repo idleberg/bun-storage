@@ -19,7 +19,7 @@ jobs:
 
       - uses: denoland/setup-deno@v2
         with:
-          deno-version: v1.x
+          deno-version: 2.x
 
       - uses: actions/cache@v4
         name: Set up Deno cache
