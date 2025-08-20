@@ -35,12 +35,12 @@
 		"url": "https://github.com/idleberg/bun-storage.git"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^2.1.2",
+		"@biomejs/biome": "^2.2.0",
 		"@commitlint/cli": "^19.8.1",
 		"@commitlint/config-conventional": "^19.8.1",
-		"@types/node": "^24.0.14",
-		"bun-types": "^1.2.18",
-		"lefthook": "^1.12.2",
+		"@types/node": "^24.3.0",
+		"bun-types": "^1.2.20",
+		"lefthook": "^1.12.3",
 		"np": "^10.2.0"
 	}
 }
