@@ -35,7 +35,7 @@
 		"url": "https://github.com/idleberg/bun-storage.git"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^2.2.0",
+		"@biomejs/biome": "2.1.2",
 		"@commitlint/cli": "^19.8.1",
 		"@commitlint/config-conventional": "^19.8.1",
 		"@types/node": "^24.3.0",
