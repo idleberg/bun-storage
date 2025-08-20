@@ -1,5 +1,6 @@
 import { Database } from 'bun:sqlite';
 import EventEmitter from 'node:events';
+import process from 'node:process';
 
 if (!process.versions.bun) {
 	throw ReferenceError('This library only runs using the Bun runtime. Find out more at https://bun.sh/.');
