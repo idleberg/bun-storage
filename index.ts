@@ -162,10 +162,6 @@ export class Storage {
 	 * @param oldValue The old value of the key.
 	 */
 	#dispatchEvent(key: string | null, newValue: unknown, oldValue: string | null) {
-		if (!this.#emitter) {
-			return;
-		}
-
 		const storageArea = this.#db.prepare('SELECT key, value FROM kv').all() as KeyValuePair[];
 
 		this.#emitter.emit(this.#eventName, {
