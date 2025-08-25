@@ -23,4 +23,4 @@ indent_style = space
 trim_trailing_whitespace = false
 
 [package.json]
-trim_trailing_whitespace = false
+insert_final_newline = false
