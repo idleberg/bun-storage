@@ -110,8 +110,9 @@ export class Storage {
 	 */
 	get length(): number {
 		const rows = this.#db.prepare('SELECT COUNT(*) FROM kv').get() as Record<string, string>;
+		const rowCount = rows['COUNT(*)'] ?? '0';
 
-		return Number.parseInt(rows['COUNT(*)'], 10) || 0;
+		return Number.parseInt(rowCount, 10);
 	}
 
 	/**
