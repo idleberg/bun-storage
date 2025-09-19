@@ -1,15 +1,8 @@
 {
 	"extends": "@idleberg/configs/tsc",
 	"compilerOptions": {
-		// "allowImportingTsExtensions": true,
 		"forceConsistentCasingInFileNames": true,
-		// "module": "NodeNext",
-		// "moduleDetection": "force",
-		// "moduleResolution": "NodeNext",
-		// "noEmit": true,
-		// "skipLibCheck": true,
-		// "strict": true,
-		// "target": "esnext",
+		"target": "esnext",
 		"types": ["bun-types", "node"]
 	}
 }
