@@ -32,7 +32,7 @@ For simple use cases, the automatic setup will expose both, `sessionStorage` and
 import 'bun-storage/auto';
 ```
 
-For more control, see the API documentation below.
+If you need more control, see the API documentation below.
 
 ### API
 
