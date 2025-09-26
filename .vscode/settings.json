@@ -1,6 +1,10 @@
 {
 	"bun.debugTerminal.enabled": true,
 	"bun.test.filePattern": "**/*.spec.ts",
+	"editor.codeActionsOnSave": {
+		"source.organizeImports.biome": "explicit",
+		"source.fixAll.biome": "explicit"
+	},
 	"editor.formatOnPaste": true,
 	"editor.formatOnSave": true,
 	"[javascript]": {
