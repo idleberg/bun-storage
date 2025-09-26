@@ -1,9 +1,15 @@
+# package manager
 node_modules/
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
 
-dist/
+# database
+.bun-storage/
 *.sqlite
 
+# build
+dist/
+
+# project-specific
 demo.ts
