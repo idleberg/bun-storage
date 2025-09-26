@@ -26,6 +26,14 @@ bunx jsr add @idleberg/bun-storage
 
 ## Usage
 
+For simple use cases, the auto-setup will expose both, `sessionStorage` and `localStorage` on the global object. The location of the database defaults to `.bun-storage/localStorage.sqlite`. However, you won't be able to listen to storage events.
+
+```typescript
+import 'bun-storage/auto';
+```
+
+For more control, see the API documentation below.
+
 ### API
 
 #### `createLocalStorage`
