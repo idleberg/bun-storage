@@ -2,7 +2,10 @@
 	"name": "bun-storage",
 	"version": "1.1.2",
 	"description": "A ponyfill for the Storage API, utilizing SQLite",
-	"exports": "./index.ts",
+	"exports": {
+		".": "./index.ts",
+		"./auto": "./auto.ts"
+	},
 	"type": "module",
 	"engines": {
 		"bun": ">=1.0.0",
@@ -35,8 +38,8 @@
 		"url": "https://github.com/idleberg/bun-storage.git"
 	},
 	"devDependencies": {
-		"@commitlint/cli": "^19.8.1",
-		"@commitlint/config-conventional": "^19.8.1",
+		"@commitlint/cli": "^20.0.0",
+		"@commitlint/config-conventional": "^20.0.0",
 		"@idleberg/configs": "^0.3.1",
 		"@types/node": "^24.5.2",
 		"bun-types": "^1.2.22",
