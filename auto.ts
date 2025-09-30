@@ -34,6 +34,6 @@ async function main() {
 }
 
 /**
- * The Bun REPL fails on top-level await, but that's okay to omit the keyword.
+ * The Bun REPL fails on top-level await, but it's okay to omit the keyword.
  */
 main();
