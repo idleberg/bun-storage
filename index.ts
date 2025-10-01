@@ -39,7 +39,7 @@ export class Storage {
 			create: true,
 		});
 
-		this.#db.exec('CREATE TABLE IF NOT EXISTS kv (key text unique, value text)');
+		this.#db.run('CREATE TABLE IF NOT EXISTS kv (key text unique, value text)');
 
 		process.on('exit', () => {
 			// This should not be necessary
