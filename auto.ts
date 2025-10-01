@@ -22,10 +22,22 @@ async function storageDirectoryExists() {
 }
 
 function initStorages() {
+	const hasLocalStorage = 'localStorage' in globalThis;
+	const hasSessionStorage = 'sessionStorage' in globalThis;
+
+	if (hasLocalStorage && hasSessionStorage) {
+		return;
+	}
+
 	const { localStorage, sessionStorage } = createStorages('.bun-storage/localStorage.sqlite');
 
-	globalThis.localStorage = localStorage;
-	globalThis.sessionStorage = sessionStorage;
+	if (!hasLocalStorage) {
+		globalThis.localStorage = localStorage;
+	}
+
+	if (!hasSessionStorage) {
+		globalThis.sessionStorage = sessionStorage;
+	}
 }
 
 async function main() {
