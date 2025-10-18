@@ -1,7 +1,7 @@
 import { access, constants, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { cwd } from 'node:process';
-import { createStorages } from './index.ts';
+import { createStorages } from './src/index.ts';
 
 const STORAGE_DIR = join(cwd(), '.bun-storage');
 

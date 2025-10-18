@@ -3,8 +3,8 @@
 	"version": "1.2.0",
 	"description": "A ponyfill for the Storage API, utilizing SQLite",
 	"exports": {
-		".": "./index.ts",
-		"./auto": "./auto.ts"
+		".": "./src/index.ts",
+		"./auto": "./src/auto.ts"
 	},
 	"type": "module",
 	"engines": {
