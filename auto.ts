@@ -1,7 +1,7 @@
 import { access, constants, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { cwd } from 'node:process';
-import { createStorages } from './index.ts';
+import { createStorage } from './index.ts';
 
 const STORAGE_DIR = join(cwd(), '.bun-storage');
 
@@ -29,7 +29,7 @@ function initStorages() {
 		return;
 	}
 
-	const { localStorage, sessionStorage } = createStorages('.bun-storage/localStorage.sqlite');
+	const { localStorage, sessionStorage } = createStorage('.bun-storage/localStorage.sqlite');
 
 	if (!hasLocalStorage) {
 		globalThis.localStorage = localStorage;

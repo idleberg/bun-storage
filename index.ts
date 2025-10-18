@@ -179,8 +179,14 @@ export class Storage {
  * Creates an instance of `localStorage` that uses a SQLite database file to store data, and a corresponding EventEmitter.
  * @param fileName path to the SQLite database file
  * @returns a tuple of storage interface and event emitter
+ *
+ * @deprecated use `createStorage` instead
  */
 export function createLocalStorage(fileName: string): [Storage, EventEmitter] {
+	console.warn(
+		'createLocalStorage is deprecated and will be removed in future versions. Please use createStorage instead.',
+	);
+
 	const emitter = new EventEmitter();
 
 	const storage = new Storage(fileName, {
@@ -193,8 +199,14 @@ export function createLocalStorage(fileName: string): [Storage, EventEmitter] {
 /**
  * Creates an instance of `sessionStorage` that uses memory to store data, and a corresponding EventEmitter.
  * @returns a tuple of storage interface and event emitter
+ *
+ * @deprecated use `createStorage` instead
  */
 export function createSessionStorage(): [Storage, EventEmitter] {
+	console.warn(
+		'createSessionStorage is deprecated and will be removed in future versions. Please use createStorage instead.',
+	);
+
 	const emitter = new EventEmitter();
 
 	const storage = new Storage(':memory:', {
@@ -209,7 +221,7 @@ export function createSessionStorage(): [Storage, EventEmitter] {
  * @param fileName path to the SQLite database file
  * @returns an object containing both storage interfaces and event emitter
  */
-export function createStorages(fileName: string): {
+export function createStorage(fileName: string): {
 	sessionStorage: Storage;
 	localStorage: Storage;
 	emitter: EventEmitter;
@@ -225,4 +237,23 @@ export function createStorages(fileName: string): {
 	});
 
 	return { sessionStorage, localStorage, emitter };
+}
+
+/**
+ * Returns instances of both, `sessionStorage` and `localStorage`, and a corresponding EventEmitter.
+ * @param fileName path to the SQLite database file
+ * @returns an object containing both storage interfaces and event emitter
+ *
+ * @deprecated use `createStorage` instead
+ */
+export function createStorages(fileName: string): {
+	sessionStorage: Storage;
+	localStorage: Storage;
+	emitter: EventEmitter;
+} {
+	console.warn(
+		'createStorages is deprecated and will be removed in future versions. Please use createStorage instead.',
+	);
+
+	return createStorage(fileName);
 }

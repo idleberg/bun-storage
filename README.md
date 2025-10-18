@@ -38,45 +38,9 @@ If you need more control, see the API documentation below.
 
 ### API
 
-#### `createLocalStorage`
+#### `createStorage`
 
-Usage: `createLocalStorage(dbFile: string)`  
-Returns: `[Storage, EventEmitter]`
-
-Creates an instance of the [`localStorage`][] API, and a corresponding EventEmitter.
-
-**Example:**
-
-```typescript
-import { createLocalStorage } from "bun-storage";
-
-const [localStorage, emitter] = createLocalStorage("./db.sqlite");
-
-// Listen for storage changes
-emitter.on("storage", console.log);
-```
-
-#### `createSessionStorage`
-
-Usage: `createSessionStorage()`  
-Returns: `[Storage, EventEmitter]`
-
-Creates an instance of the [`sessionStorage`][] API, and a corresponding EventEmitter.
-
-**Example:**
-
-```typescript
-import { createSessionStorage } from "bun-storage";
-
-const [sessionStorage, emitter] = createSessionStorage();
-
-// Listen for storage changes
-emitter.on("storage", console.log);
-```
-
-#### `createStorages`
-
-Usage: `createStorages(dbFile: string)`  
+Usage: `createStorage(dbFile: string)`  
 Returns: `{ sessionStorage: Storage, localStorage: Storage, emitter: EventEmitter }`
 
 Creates instances of both, [`sessionStorage`][] and [`localStorage`][], as well as a corresponding EventEmitter.
@@ -84,9 +48,9 @@ Creates instances of both, [`sessionStorage`][] and [`localStorage`][], as well 
 **Example:**
 
 ```typescript
-import { createStorages } from "bun-storage";
+import { createStorage } from "bun-storage";
 
-const { sessionStorage, localStorage, emitter } = createStorages("./db.sqlite");
+const { sessionStorage, localStorage, emitter } = createStorage("./db.sqlite");
 
 // Listen for storage changes
 emitter.on("storage", console.log);
