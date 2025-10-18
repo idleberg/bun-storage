@@ -23,7 +23,7 @@
 		"README.md"
 	],
 	"scripts": {
-		"check": "biome check --no-errors-on-unmatched --vcs-enabled=true --vcs-use-ignore-file=true",
+		"check": "biome check",
 		"check:ci": "biome ci",
 		"dev": "bun run build -- --watch",
 		"prepare": "lefthook install",
