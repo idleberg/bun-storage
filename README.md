@@ -40,7 +40,7 @@ If you need more control, see the API documentation below.
 
 #### `createLocalStorage`
 
-Usage: `createLocalStorage(dbFile: string)`  
+Usage: `createLocalStorage(dbFile: string, options?)`  
 Returns: `[Storage, EventEmitter]`
 
 Creates an instance of the [`localStorage`][] API, and a corresponding EventEmitter.
@@ -58,7 +58,7 @@ emitter.on("storage", console.log);
 
 #### `createSessionStorage`
 
-Usage: `createSessionStorage()`  
+Usage: `createSessionStorage(options?)`  
 Returns: `[Storage, EventEmitter]`
 
 Creates an instance of the [`sessionStorage`][] API, and a corresponding EventEmitter.
@@ -76,7 +76,7 @@ emitter.on("storage", console.log);
 
 #### `createStorages`
 
-Usage: `createStorages(dbFile: string)`  
+Usage: `createStorages(dbFile: string, options?)`  
 Returns: `{ sessionStorage: Storage, localStorage: Storage, emitter: EventEmitter }`
 
 Creates instances of both, [`sessionStorage`][] and [`localStorage`][], as well as a corresponding EventEmitter.
@@ -94,7 +94,7 @@ emitter.on("storage", console.log);
 
 #### `Storage` (Advanced Usage)
 
-Usage: `new Storage(filePath: string | ':memory:', options: StorageEventOptions)`
+Usage: `new Storage(filePath: string | ':memory:', options?: StorageEventOptions)`
 
 This class is used internally by the above factory functions. It allows you more control over the EventEmitter, e.g. you could re-use an existing one from your application code.
 
