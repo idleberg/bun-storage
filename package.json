@@ -2,6 +2,12 @@
 	"name": "bun-storage",
 	"version": "1.2.0",
 	"description": "A ponyfill for the Storage API, utilizing SQLite",
+	"author": "Jan T. Sott",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/idleberg/bun-storage.git"
+	},
 	"exports": {
 		".": "./src/index.ts",
 		"./auto": "./src/auto.ts"
@@ -31,12 +37,6 @@
 		"sessionstorage",
 		"ponyfill"
 	],
-	"author": "Jan T. Sott",
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/idleberg/bun-storage.git"
-	},
 	"devDependencies": {
 		"@commitlint/cli": "^20.1.0",
 		"@commitlint/config-conventional": "^20.0.0",
