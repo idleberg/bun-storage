@@ -1,8 +1,8 @@
 {
 	"name": "@idleberg/bun-storage",
 	"version": "1.2.1",
-	"exports": "./index.ts",
+	"exports": "./src/index.ts",
 	"publish": {
-		"include": ["index.ts", "jsr.json", "LICENSE", "README.md"]
+		"include": ["src/index.ts", "jsr.json", "LICENSE", "README.md"]
 	}
 }
