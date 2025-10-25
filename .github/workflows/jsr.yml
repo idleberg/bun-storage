@@ -30,6 +30,6 @@ jobs:
           key: ${{ runner.os }}-deno-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - run: |
-          deno install --no-lock
+          deno install --no-lock --allow-scripts=npm:lefthook
           deno publish --dry-run
           deno publish
