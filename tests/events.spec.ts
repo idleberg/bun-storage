@@ -14,12 +14,12 @@ const implementations = [
 	{
 		type: 'sessionStorage',
 		storage: sessionStorage,
-		emitter: emitter,
+		emitter,
 	},
 	{
 		type: 'localStorage',
 		storage: localStorage,
-		emitter: emitter,
+		emitter,
 	},
 ];
 
