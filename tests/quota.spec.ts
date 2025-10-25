@@ -1,155 +1,207 @@
-import { expect, test } from 'bun:test';
+import { describe, expect, test } from 'bun:test';
 
 // Helpers
 import { randomUUID } from 'node:crypto';
 import EventEmitter from 'node:events';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
-import { createLocalStorage, createSessionStorage, createStorages, Storage } from '../src/index.ts';
+import { createStorage, Storage } from '../src/index.ts';
 
 const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 
-test('localStorage with quota - enforces 5MB limit', () => {
-	const [storage] = createLocalStorage(dbFile, { quota: 5 * 1024 * 1024 });
-	storage.clear();
+describe('Storage with quota - enforces 5MB limit', () => {
+	const { localStorage, sessionStorage } = createStorage(dbFile, { quota: 5 * 1024 * 1024 });
 
-	// Store ~4.9MB of data (should succeed)
-	const largeValue = 'x'.repeat(2.45 * 1024 * 1024); // ~2.45M chars = ~4.9MB in UTF-16
-	storage.setItem('key1', largeValue);
+	test.each([
+		['localStorage', localStorage],
+		['sessionStorage', sessionStorage],
+	])('%s', (_name, storage) => {
+		storage.clear();
 
-	expect(storage.getItem('key1')).toBe(largeValue);
+		// Store ~4.9MB of data (should succeed)
+		const largeValue = 'x'.repeat(2.45 * 1024 * 1024); // ~2.45M chars = ~4.9MB in UTF-16
+		storage.setItem('key1', largeValue);
 
-	// Try to add more data that would exceed 5MB (should throw)
-	const extraValue = 'y'.repeat(100 * 1024); // ~100K chars = ~200KB
-	expect(() => storage.setItem('key2', extraValue)).toThrow();
+		expect(storage.getItem('key1')).toBe(largeValue);
+
+		// Try to add more data that would exceed 5MB (should throw)
+		const extraValue = 'y'.repeat(100 * 1024); // ~100K chars = ~200KB
+		expect(() => storage.setItem('key2', extraValue)).toThrow();
+	});
 });
 
-test('sessionStorage with quota - enforces limit', () => {
-	const [storage] = createSessionStorage({ quota: 1024 * 1024 }); // 1MB
-	storage.clear();
+describe('Storage with quota - enforces limit', () => {
+	const { localStorage, sessionStorage } = createStorage(dbFile, { quota: 1024 * 1024 }); // 1MB
 
-	// Store ~0.9MB of data (should succeed)
-	const largeValue = 'x'.repeat(450 * 1024); // ~450K chars = ~0.9MB in UTF-16
-	storage.setItem('key1', largeValue);
+	test.each([
+		['localStorage', localStorage],
+		['sessionStorage', sessionStorage],
+	])('%s', (_name, storage) => {
+		storage.clear();
 
-	expect(storage.getItem('key1')).toBe(largeValue);
+		// Store ~0.9MB of data (should succeed)
+		const largeValue = 'x'.repeat(450 * 1024); // ~450K chars = ~0.9MB in UTF-16
+		storage.setItem('key1', largeValue);
 
-	// Try to add more data that would exceed 1MB (should throw)
-	const extraValue = 'y'.repeat(100 * 1024); // ~100K chars = ~200KB
-	expect(() => storage.setItem('key2', extraValue)).toThrow();
+		expect(storage.getItem('key1')).toBe(largeValue);
+
+		// Try to add more data that would exceed 1MB (should throw)
+		const extraValue = 'y'.repeat(100 * 1024); // ~100K chars = ~200KB
+		expect(() => storage.setItem('key2', extraValue)).toThrow();
+	});
 });
 
-test('createStorages with quota - both storages respect limit', () => {
-	const storages = createStorages(dbFile, { quota: 512 * 1024 }); // 512KB
-	storages.localStorage.clear();
-	storages.sessionStorage.clear();
+describe('Storage with quota - enforces limit', () => {
+	const { localStorage, sessionStorage } = createStorage(dbFile, { quota: 1024 * 1024 }); // 1MB
 
-	const value = 'x'.repeat(200 * 1024); // ~200K chars = ~400KB
+	test.each([
+		['localStorage', localStorage],
+		['sessionStorage', sessionStorage],
+	])('%s', (_name, storage) => {
+		storage.clear();
 
-	// Both should accept this size
-	storages.localStorage.setItem('key1', value);
-	storages.sessionStorage.setItem('key1', value);
+		// Store ~0.9MB of data (should succeed)
+		const largeValue = 'x'.repeat(450 * 1024); // ~450K chars = ~0.9MB in UTF-16
+		storage.setItem('key1', largeValue);
 
-	// Both should reject exceeding the quota
-	const largeValue = 'y'.repeat(200 * 1024); // Another ~400KB
-	expect(() => storages.localStorage.setItem('key2', largeValue)).toThrow();
-	expect(() => storages.sessionStorage.setItem('key2', largeValue)).toThrow();
+		expect(storage.getItem('key1')).toBe(largeValue);
+
+		// Try to add more data that would exceed 1MB (should throw)
+		const extraValue = 'y'.repeat(100 * 1024); // ~100K chars = ~200KB
+		expect(() => storage.setItem('key2', extraValue)).toThrow();
+	});
 });
 
-test('Storage with no quota - allows unlimited storage', () => {
-	const [storage] = createLocalStorage(dbFile);
-	storage.clear();
+describe('Storage with no quota - allows unlimited storage', () => {
+	const { localStorage, sessionStorage } = createStorage(dbFile);
 
-	// Store a very large amount of data (should succeed)
-	const largeValue = 'x'.repeat(10 * 1024 * 1024); // ~10M chars = ~20MB in UTF-16
-	storage.setItem('key1', largeValue);
+	test.each([
+		['localStorage', localStorage],
+		['sessionStorage', sessionStorage],
+	])('%s', (_name, storage) => {
+		storage.clear();
 
-	expect(storage.getItem('key1')).toBe(largeValue);
+		// Store a very large amount of data (should succeed)
+		const largeValue = 'x'.repeat(10 * 1024 * 1024); // ~10M chars = ~20MB in UTF-16
+		storage.setItem('key1', largeValue);
+
+		expect(storage.getItem('key1')).toBe(largeValue);
+	});
 });
 
-test('Storage quota - updating existing key with larger value', () => {
-	const [storage] = createLocalStorage(dbFile, { quota: 100 * 1024 }); // 100KB
-	storage.clear();
+describe('Storage quota - updating existing key with larger value', () => {
+	const { localStorage, sessionStorage } = createStorage(dbFile, { quota: 100 * 1024 }); // 100KB
 
-	// Store initial value
-	const smallValue = 'x'.repeat(10 * 1024); // ~10K chars = ~20KB
-	storage.setItem('key1', smallValue);
+	test.each([
+		['localStorage', localStorage],
+		['sessionStorage', sessionStorage],
+	])('%s', (_name, storage) => {
+		storage.clear();
 
-	// Update with larger value that still fits (should succeed)
-	const mediumValue = 'y'.repeat(40 * 1024); // ~40K chars = ~80KB
-	storage.setItem('key1', mediumValue);
-	expect(storage.getItem('key1')).toBe(mediumValue);
+		// Store initial value
+		const smallValue = 'x'.repeat(10 * 1024); // ~10K chars = ~20KB
+		storage.setItem('key1', smallValue);
 
-	// Update with value that exceeds quota (should throw)
-	const largeValue = 'z'.repeat(60 * 1024); // ~60K chars = ~120KB
-	expect(() => storage.setItem('key1', largeValue)).toThrow();
+		// Update with larger value that still fits (should succeed)
+		const mediumValue = 'y'.repeat(40 * 1024); // ~40K chars = ~80KB
+		storage.setItem('key1', mediumValue);
+		expect(storage.getItem('key1')).toBe(mediumValue);
+
+		// Update with value that exceeds quota (should throw)
+		const largeValue = 'z'.repeat(60 * 1024); // ~60K chars = ~120KB
+		expect(() => storage.setItem('key1', largeValue)).toThrow();
+	});
 });
 
-test('Storage quota - key length counts toward quota', () => {
-	const [storage] = createLocalStorage(dbFile, { quota: 1024 }); // 1KB
-	storage.clear();
+describe('Storage quota - key length counts toward quota', () => {
+	const { localStorage, sessionStorage } = createStorage(dbFile, { quota: 1024 }); // 1KB
 
-	// Use a very long key name
-	const longKey = 'k'.repeat(400); // ~400 chars = ~800 bytes
-	const value = 'v'.repeat(50); // ~50 chars = ~100 bytes
-	storage.setItem(longKey, value);
+	test.each([
+		['localStorage', localStorage],
+		['sessionStorage', sessionStorage],
+	])('%s', (_name, storage) => {
+		storage.clear();
 
-	// Key + value should be within quota
-	expect(storage.getItem(longKey)).toBe(value);
+		// Use a very long key name
+		const longKey = 'k'.repeat(400); // ~400 chars = ~800 bytes
+		const value = 'v'.repeat(50); // ~50 chars = ~100 bytes
+		storage.setItem(longKey, value);
 
-	// Adding another item should exceed quota
-	expect(() => storage.setItem('key2', 'x'.repeat(100))).toThrow();
+		// Key + value should be within quota
+		expect(storage.getItem(longKey)).toBe(value);
+
+		// Adding another item should exceed quota
+		expect(() => storage.setItem('key2', 'x'.repeat(100))).toThrow();
+	});
 });
 
-test('Storage quota - error message is correct', () => {
-	const [storage] = createLocalStorage(dbFile, { quota: 100 }); // 100 bytes
-	storage.clear();
+describe('Storage quota - error message is correct', () => {
+	const { localStorage, sessionStorage } = createStorage(dbFile, { quota: 100 }); // 100 bytes
 
-	try {
-		storage.setItem('key', 'x'.repeat(100)); // ~100 chars = ~200 bytes
-		throw new Error('Should have thrown');
-	} catch (error) {
-		expect(error).toBeInstanceOf(Error);
-		expect((error as Error).name).toBe('QuotaExceededError');
-		expect((error as Error).message).toContain('exceeded the quota');
-		expect((error as Error).message).toContain('key');
-	}
+	test.each([
+		['localStorage', localStorage],
+		['sessionStorage', sessionStorage],
+	])('%s', (_name, storage) => {
+		storage.clear();
+
+		try {
+			storage.setItem('key', 'x'.repeat(100)); // ~100 chars = ~200 bytes
+			throw new Error('Should have thrown');
+		} catch (error) {
+			expect(error).toBeInstanceOf(Error);
+			expect((error as Error).name).toBe('QuotaExceededError');
+			expect((error as Error).message).toContain('exceeded the quota');
+			expect((error as Error).message).toContain('key');
+		}
+	});
 });
 
-test('Storage quota - multiple small items exceed quota', () => {
-	const [storage] = createLocalStorage(dbFile, { quota: 1024 }); // 1KB
-	storage.clear();
+describe('Storage quota - multiple small items exceed quota', () => {
+	const { localStorage, sessionStorage } = createStorage(dbFile, { quota: 1024 }); // 1KB
 
-	// Add multiple small items
-	storage.setItem('key1', 'x'.repeat(100)); // ~200 bytes
-	storage.setItem('key2', 'y'.repeat(100)); // ~200 bytes
-	storage.setItem('key3', 'z'.repeat(100)); // ~200 bytes
+	test.each([
+		['localStorage', localStorage],
+		['sessionStorage', sessionStorage],
+	])('%s', (_name, storage) => {
+		storage.clear();
 
-	// Next item should exceed quota
-	expect(() => storage.setItem('key4', 'a'.repeat(200))).toThrow();
+		// Add multiple small items
+		storage.setItem('key1', 'x'.repeat(100)); // ~200 bytes
+		storage.setItem('key2', 'y'.repeat(100)); // ~200 bytes
+		storage.setItem('key3', 'z'.repeat(100)); // ~200 bytes
 
-	// Verify first 3 items are still there
-	expect(storage.getItem('key1')).toBe('x'.repeat(100));
-	expect(storage.getItem('key2')).toBe('y'.repeat(100));
-	expect(storage.getItem('key3')).toBe('z'.repeat(100));
+		// Next item should exceed quota
+		expect(() => storage.setItem('key4', 'a'.repeat(200))).toThrow();
+
+		// Verify first 3 items are still there
+		expect(storage.getItem('key1')).toBe('x'.repeat(100));
+		expect(storage.getItem('key2')).toBe('y'.repeat(100));
+		expect(storage.getItem('key3')).toBe('z'.repeat(100));
+	});
 });
 
-test('Storage quota - updating to smaller value frees space', () => {
-	const [storage] = createLocalStorage(dbFile, { quota: 1024 }); // 1KB
-	storage.clear();
+describe('Storage quota - updating to smaller value frees space', () => {
+	const { localStorage, sessionStorage } = createStorage(dbFile, { quota: 1024 }); // 1KB
 
-	// Fill almost to capacity
-	storage.setItem('key1', 'x'.repeat(400)); // ~800 bytes
+	test.each([
+		['localStorage', localStorage],
+		['sessionStorage', sessionStorage],
+	])('%s', (_name, storage) => {
+		storage.clear();
 
-	// Can't add more
-	expect(() => storage.setItem('key2', 'y'.repeat(200))).toThrow();
+		// Fill almost to capacity
+		storage.setItem('key1', 'x'.repeat(400)); // ~800 bytes
 
-	// Update to smaller value
-	storage.setItem('key1', 'x'.repeat(100)); // ~200 bytes
+		// Can't add more
+		expect(() => storage.setItem('key2', 'y'.repeat(200))).toThrow();
 
-	// Now we can add more
-	storage.setItem('key2', 'y'.repeat(200)); // ~400 bytes
-	expect(storage.getItem('key2')).toBe('y'.repeat(200));
+		// Update to smaller value
+		storage.setItem('key1', 'x'.repeat(100)); // ~200 bytes
+
+		// Now we can add more
+		storage.setItem('key2', 'y'.repeat(200)); // ~400 bytes
+		expect(storage.getItem('key2')).toBe('y'.repeat(200));
+	});
 });
 
 test('Storage constructor with quota option', () => {
