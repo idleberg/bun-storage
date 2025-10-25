@@ -209,48 +209,13 @@ export class Storage {
 }
 
 /**
- * Creates an instance of `localStorage` that uses a SQLite database file to store data, and a corresponding EventEmitter.
- * @param fileName path to the SQLite database file
- * @param options Optional configuration object
- * @param options.quota Optional storage quota in bytes (e.g., 5 * 1024 * 1024 for 5MB)
- * @returns a tuple of storage interface and event emitter
- */
-export function createLocalStorage(fileName: string, options?: { quota?: number }): [Storage, EventEmitter] {
-	const emitter = new EventEmitter();
-
-	const storage = new Storage(fileName, {
-		emitter,
-		quota: options?.quota,
-	});
-
-	return [storage, emitter];
-}
-
-/**
- * Creates an instance of `sessionStorage` that uses memory to store data, and a corresponding EventEmitter.
- * @param options Optional configuration object
- * @param options.quota Optional storage quota in bytes (e.g., 5 * 1024 * 1024 for 5MB)
- * @returns a tuple of storage interface and event emitter
- */
-export function createSessionStorage(options?: { quota?: number }): [Storage, EventEmitter] {
-	const emitter = new EventEmitter();
-
-	const storage = new Storage(':memory:', {
-		emitter,
-		quota: options?.quota,
-	});
-
-	return [storage, emitter];
-}
-
-/**
  * Returns instances of both, `sessionStorage` and `localStorage`, and a corresponding EventEmitter.
  * @param fileName path to the SQLite database file
  * @param options Optional configuration object
  * @param options.quota Optional storage quota in bytes (e.g., 5 * 1024 * 1024 for 5MB)
  * @returns an object containing both storage interfaces and event emitter
  */
-export function createStorages(
+export function createStorage(
 	fileName: string,
 	options?: { quota?: number },
 ): {

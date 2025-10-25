@@ -1,6 +1,6 @@
 {
 	"name": "bun-storage",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"description": "A ponyfill for the Storage API, utilizing SQLite",
 	"author": "Jan T. Sott",
 	"license": "MIT",

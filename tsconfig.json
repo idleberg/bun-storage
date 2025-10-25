@@ -2,6 +2,7 @@
 	"extends": "@idleberg/configs/tsc",
 	"compilerOptions": {
 		"forceConsistentCasingInFileNames": true,
+		"lib": ["DOM"],
 		"target": "esnext",
 		"types": ["bun-types", "node"]
 	}

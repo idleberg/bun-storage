@@ -4,25 +4,13 @@ import { beforeEach, expect, test } from 'bun:test';
 import { randomUUID } from 'node:crypto';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
-import { createLocalStorage, createSessionStorage, createStorages } from '../src/index.ts';
+import { createStorage } from '../src/index.ts';
 
 const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 
-const [localStorage, localStorageEmitter] = createLocalStorage(dbFile);
-const [sessionStorage, sessionStorageEmitter] = createSessionStorage();
-const storages = createStorages(dbFile);
+const storages = createStorage(dbFile);
 
 const implementations = [
-	{
-		type: 'localStorage',
-		storage: localStorage,
-		emitter: localStorageEmitter,
-	},
-	{
-		type: 'sessionStorage',
-		storage: sessionStorage,
-		emitter: sessionStorageEmitter,
-	},
 	{
 		type: 'storages.localStorage',
 		storage: storages.localStorage,
