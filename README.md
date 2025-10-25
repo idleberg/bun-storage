@@ -13,6 +13,7 @@
 -   fully API compatible to both, `localStorage` and `sessionStorage`
 -   persists data across sessions
 -   supports `storage` events
+-   supports optional quota
 
 ## Installation
 
