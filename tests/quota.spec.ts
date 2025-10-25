@@ -10,11 +10,11 @@ import { createStorage, Storage } from '../src/index.ts';
 const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 
 describe('Storage with quota - enforces 5MB limit', () => {
-	const { localStorage, sessionStorage } = createStorage(dbFile, { quota: 5 * 1024 * 1024 });
+	const { sessionStorage, localStorage } = createStorage(dbFile, { quota: 5 * 1024 * 1024 });
 
 	test.each([
-		['localStorage', localStorage],
 		['sessionStorage', sessionStorage],
+		['localStorage', localStorage],
 	])('%s', (_name, storage) => {
 		storage.clear();
 
@@ -31,11 +31,11 @@ describe('Storage with quota - enforces 5MB limit', () => {
 });
 
 describe('Storage with quota - enforces limit', () => {
-	const { localStorage, sessionStorage } = createStorage(dbFile, { quota: 1024 * 1024 }); // 1MB
+	const { sessionStorage, localStorage } = createStorage(dbFile, { quota: 1024 * 1024 }); // 1MB
 
 	test.each([
-		['localStorage', localStorage],
 		['sessionStorage', sessionStorage],
+		['localStorage', localStorage],
 	])('%s', (_name, storage) => {
 		storage.clear();
 
@@ -52,11 +52,11 @@ describe('Storage with quota - enforces limit', () => {
 });
 
 describe('Storage with quota - enforces limit', () => {
-	const { localStorage, sessionStorage } = createStorage(dbFile, { quota: 1024 * 1024 }); // 1MB
+	const { sessionStorage, localStorage } = createStorage(dbFile, { quota: 1024 * 1024 }); // 1MB
 
 	test.each([
-		['localStorage', localStorage],
 		['sessionStorage', sessionStorage],
+		['localStorage', localStorage],
 	])('%s', (_name, storage) => {
 		storage.clear();
 
@@ -73,11 +73,11 @@ describe('Storage with quota - enforces limit', () => {
 });
 
 describe('Storage with no quota - allows unlimited storage', () => {
-	const { localStorage, sessionStorage } = createStorage(dbFile);
+	const { sessionStorage, localStorage } = createStorage(dbFile);
 
 	test.each([
-		['localStorage', localStorage],
 		['sessionStorage', sessionStorage],
+		['localStorage', localStorage],
 	])('%s', (_name, storage) => {
 		storage.clear();
 
@@ -90,11 +90,11 @@ describe('Storage with no quota - allows unlimited storage', () => {
 });
 
 describe('Storage quota - updating existing key with larger value', () => {
-	const { localStorage, sessionStorage } = createStorage(dbFile, { quota: 100 * 1024 }); // 100KB
+	const { sessionStorage, localStorage } = createStorage(dbFile, { quota: 100 * 1024 }); // 100KB
 
 	test.each([
-		['localStorage', localStorage],
 		['sessionStorage', sessionStorage],
+		['localStorage', localStorage],
 	])('%s', (_name, storage) => {
 		storage.clear();
 
@@ -114,11 +114,11 @@ describe('Storage quota - updating existing key with larger value', () => {
 });
 
 describe('Storage quota - key length counts toward quota', () => {
-	const { localStorage, sessionStorage } = createStorage(dbFile, { quota: 1024 }); // 1KB
+	const { sessionStorage, localStorage } = createStorage(dbFile, { quota: 1024 }); // 1KB
 
 	test.each([
-		['localStorage', localStorage],
 		['sessionStorage', sessionStorage],
+		['localStorage', localStorage],
 	])('%s', (_name, storage) => {
 		storage.clear();
 
@@ -136,11 +136,11 @@ describe('Storage quota - key length counts toward quota', () => {
 });
 
 describe('Storage quota - error message is correct', () => {
-	const { localStorage, sessionStorage } = createStorage(dbFile, { quota: 100 }); // 100 bytes
+	const { sessionStorage, localStorage } = createStorage(dbFile, { quota: 100 }); // 100 bytes
 
 	test.each([
-		['localStorage', localStorage],
 		['sessionStorage', sessionStorage],
+		['localStorage', localStorage],
 	])('%s', (_name, storage) => {
 		storage.clear();
 
@@ -157,11 +157,11 @@ describe('Storage quota - error message is correct', () => {
 });
 
 describe('Storage quota - multiple small items exceed quota', () => {
-	const { localStorage, sessionStorage } = createStorage(dbFile, { quota: 1024 }); // 1KB
+	const { sessionStorage, localStorage } = createStorage(dbFile, { quota: 1024 }); // 1KB
 
 	test.each([
-		['localStorage', localStorage],
 		['sessionStorage', sessionStorage],
+		['localStorage', localStorage],
 	])('%s', (_name, storage) => {
 		storage.clear();
 
@@ -181,11 +181,11 @@ describe('Storage quota - multiple small items exceed quota', () => {
 });
 
 describe('Storage quota - updating to smaller value frees space', () => {
-	const { localStorage, sessionStorage } = createStorage(dbFile, { quota: 1024 }); // 1KB
+	const { sessionStorage, localStorage } = createStorage(dbFile, { quota: 1024 }); // 1KB
 
 	test.each([
-		['localStorage', localStorage],
 		['sessionStorage', sessionStorage],
+		['localStorage', localStorage],
 	])('%s', (_name, storage) => {
 		storage.clear();
 

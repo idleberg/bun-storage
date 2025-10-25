@@ -8,18 +8,18 @@ import { createStorage } from '../src/index.ts';
 
 const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
 
-const storages = createStorage(dbFile);
+const { sessionStorage, localStorage, emitter } = createStorage(dbFile);
 
 const implementations = [
 	{
-		type: 'storages.localStorage',
-		storage: storages.localStorage,
-		emitter: storages.emitter,
+		type: 'sessionStorage',
+		storage: sessionStorage,
+		emitter: emitter,
 	},
 	{
-		type: 'storages.sessionStorage',
-		storage: storages.sessionStorage,
-		emitter: storages.emitter,
+		type: 'localStorage',
+		storage: localStorage,
+		emitter: emitter,
 	},
 ];
 

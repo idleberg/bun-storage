@@ -7,16 +7,16 @@ import { resolve } from 'node:path';
 import { createStorage, Storage } from '../src/index.ts';
 
 const dbFile = resolve(tmpdir(), `${randomUUID()}.sqlite`);
-const storages = createStorage(dbFile);
+const { sessionStorage, localStorage } = createStorage(dbFile);
 
 const implementations = [
 	{
-		type: 'storages.localStorage',
-		storage: storages.localStorage,
+		type: 'sessionStorage',
+		storage: sessionStorage,
 	},
 	{
-		type: 'storages.sessionStorage',
-		storage: storages.sessionStorage,
+		type: 'localStorage',
+		storage: localStorage,
 	},
 ];
 
