@@ -8,11 +8,14 @@ type KeyValuePair = {
 	value: string;
 };
 
-type StorageOptions = {
+interface StorageFactoryOptions {
+	quota?: number;
+}
+
+interface StorageClassOptions extends StorageFactoryOptions {
 	emitter: EventEmitter;
 	eventName?: string;
-	quota?: number;
-};
+}
 
 export class Storage {
 	#db: Database;
@@ -30,7 +33,7 @@ export class Storage {
 	 * @throws {TypeError} If the `emitter` option is provided and is not an instance of `EventEmitter`.
 	 * @returns A new instance of `Storage`.
 	 */
-	constructor(fileName: string | ':memory:', options: StorageOptions) {
+	constructor(fileName: string | ':memory:', options: StorageClassOptions) {
 		if (!(options.emitter instanceof EventEmitter)) {
 			throw new TypeError('The emitter option must be an instance of EventEmitter.');
 		}
@@ -217,7 +220,7 @@ export class Storage {
  */
 export function createStorage(
 	fileName: string,
-	options?: { quota?: number },
+	options?: StorageFactoryOptions,
 ): {
 	sessionStorage: Storage;
 	localStorage: Storage;
