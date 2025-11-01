@@ -8,15 +8,34 @@ type KeyValuePair = {
 	value: string;
 };
 
-interface StorageFactoryOptions {
+/**
+ * Options for creating storage instances.
+ */
+export interface StorageFactoryOptions {
+	/**
+	 * Storage quota in bytes. When set, enforces browser-like storage limits (e.g., 5MB).
+	 */
 	quota?: number;
 }
 
-interface StorageClassOptions extends StorageFactoryOptions {
+/**
+ * Options for the Storage class constructor.
+ */
+export interface StorageClassOptions extends StorageFactoryOptions {
+	/**
+	 * An instance of EventEmitter to use for dispatching storage events.
+	 */
 	emitter: EventEmitter;
+
+	/**
+	 * The name of the event to dispatch when a storage event occurs. Defaults to `storage`.
+	 */
 	eventName?: string;
 }
 
+/**
+ * A ponyfill for both, the `localStorage` and `sessionStorage`, APIs using SQLite as the underlying storage mechanism.
+ */
 export class Storage {
 	#db: Database;
 	#emitter: EventEmitter;
@@ -25,13 +44,9 @@ export class Storage {
 
 	/**
 	 * Creates a new instance of `Storage`, a ponyfill for both, the `localStorage` and `sessionStorage`, APIs.
-	 * @param fileName path to the SQLite database file, or `:memory:` to act like `sessionStorage`.
-	 * @param options An object containing options for the event emitter.
-	 * @param options.emitter An instance of `EventEmitter` to use for dispatching storage events.
-	 * @param options.eventName The name of the event to dispatch when a storage event occurs. Defaults to `storage`.
-	 * @param options.quota Storage quota in bytes. When set, enforces browser-like storage limits (e.g., 5MB).
-	 * @throws {TypeError} If the `emitter` option is provided and is not an instance of `EventEmitter`.
-	 * @returns A new instance of `Storage`.
+	 * @param fileName Path to the SQLite database file, or `:memory:` to act like `sessionStorage`.
+	 * @param options Configuration options for the storage instance.
+	 * @throws {TypeError} If the `emitter` option is not an instance of `EventEmitter`.
 	 */
 	constructor(fileName: string | ':memory:', options: StorageClassOptions) {
 		if (!(options.emitter instanceof EventEmitter)) {
