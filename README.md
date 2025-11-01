@@ -33,7 +33,7 @@ For simple use cases the automatic setup will expose both, `sessionStorage` and 
 import 'bun-storage/auto';
 ```
 
-The location of the database will default to `.bun-storage/localStorage.sqlite`. However, this comes at the downside of not being able to listen to storage events.
+The location of the database will default to `.bun-storage/localStorage.sqlite`. However, this comes at the downside of not being able to listen to storage events or to control the quota.
 
 If you need more control, see the API documentation below.
 
