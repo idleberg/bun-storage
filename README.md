@@ -41,7 +41,7 @@ If you need more control, see the API documentation below.
 
 #### `createStorage`
 
-Usage: `createStorage(dbFile: string, options?: StorageFactoryOptions)`  
+Usage: `createStorage(dbFile?: string, options?: StorageFactoryOptions)`  
 Returns: `{ sessionStorage: Storage, localStorage: Storage, emitter: EventEmitter }`
 
 Creates instances of both, [`sessionStorage`][] and [`localStorage`][], as well as a corresponding EventEmitter.
