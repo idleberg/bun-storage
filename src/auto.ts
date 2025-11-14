@@ -29,7 +29,9 @@ function initStorages() {
 		return;
 	}
 
-	const { localStorage, sessionStorage } = createStorage('.bun-storage/localStorage.sqlite');
+	const { localStorage, sessionStorage } = createStorage('.bun-storage/localStorage.sqlite', {
+		quota: 5 * 1024 * 1024,
+	});
 
 	if (!hasLocalStorage) {
 		globalThis.localStorage = localStorage;

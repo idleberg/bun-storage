@@ -228,13 +228,13 @@ export class Storage {
 
 /**
  * Returns instances of both, `sessionStorage` and `localStorage`, and a corresponding EventEmitter.
- * @param fileName path to the SQLite database file
+ * @param fileName path to the SQLite database file, or `:memory:` to use in-memory storage
  * @param options Optional configuration object
  * @param options.quota Optional storage quota in bytes (e.g., 5 * 1024 * 1024 for 5MB)
  * @returns an object containing both storage interfaces and event emitter
  */
 export function createStorage(
-	fileName: string,
+	fileName = ':memory:',
 	options?: StorageFactoryOptions,
 ): {
 	sessionStorage: Storage;

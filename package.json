@@ -23,8 +23,9 @@
 		"README.md"
 	],
 	"scripts": {
-		"check": "biome check",
-		"check:ci": "biome ci",
+		"check": "concurrently --prefix-colors blue,green,magenta npm:check:*",
+		"check:biome": "biome check",
+		"check:e18e": "e18e-cli analyze",
 		"dev": "bun run build -- --watch",
 		"prepare": "lefthook install",
 		"publish": "np --any-branch",
@@ -40,9 +41,11 @@
 	"devDependencies": {
 		"@commitlint/cli": "^20.1.0",
 		"@commitlint/config-conventional": "^20.0.0",
-		"@idleberg/configs": "^0.3.1",
-		"@types/node": "^24.9.2",
-		"bun-types": "^1.3.1",
+		"@e18e/cli": "^0.3.1",
+		"@idleberg/configs": "^0.3.3",
+		"@types/node": "^24.10.1",
+		"bun-types": "^1.3.2",
+		"concurrently": "^9.2.1",
 		"np": "^10.2.0"
 	}
 }
