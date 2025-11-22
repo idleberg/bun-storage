@@ -27,7 +27,10 @@ bunx jsr add @idleberg/bun-storage
 
 ## Usage
 
-For simple use cases the automatic setup will expose both, `sessionStorage` and `localStorage`, on the global object.
+> [!NOTE]
+> The following examples will assume that you're installing npm. If you're using JSR, make sure to adjust the imports.
+
+For simple use cases, the automatic setup will expose both `sessionStorage` and `localStorage`, on the global object.
 
 ```typescript
 import "bun-storage/auto";
