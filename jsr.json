@@ -6,6 +6,6 @@
 		"./auto": "./src/auto.ts"
 	},
 	"publish": {
-		"include": ["src/index.ts", "jsr.json", "LICENSE", "README.md"]
+		"include": ["src/*.ts", "jsr.json", "LICENSE", "README.md"]
 	}
 }
