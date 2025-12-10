@@ -49,6 +49,10 @@ export class Storage {
 	 * @throws {TypeError} If the `emitter` option is not an instance of `EventEmitter`.
 	 */
 	constructor(fileName: string | ':memory:', options: StorageClassOptions) {
+		if (!fileName) {
+			throw new TypeError('The provided database file name is empty.');
+		}
+
 		if (!(options.emitter instanceof EventEmitter)) {
 			throw new TypeError('The emitter option must be an instance of EventEmitter.');
 		}

@@ -194,4 +194,11 @@ for (const { type, storage } of implementations) {
 		// @ts-expect-error Omitting the argument for the test
 		expect(() => new Storage(fileName, {}).toThrow('The emitter option must be an instance of EventEmitter.'));
 	});
+
+	test('Storage constructor throws on empty fileName', () => {
+		expect(() => {
+			// @ts-expect-error The expected error should throw early enough before the second argument is checked.
+			new Storage('');
+		}).toThrow('The provided database file name is empty.');
+	});
 }
