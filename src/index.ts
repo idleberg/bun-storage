@@ -49,7 +49,7 @@ export class Storage {
 	 * @throws {TypeError} If the `emitter` option is not an instance of `EventEmitter`.
 	 */
 	constructor(fileName: string | ':memory:', options: StorageClassOptions) {
-		if (!fileName) {
+		if (typeof fileName !== 'string' || fileName.length === 0) {
 			throw new TypeError('The provided database file name is empty.');
 		}
 
