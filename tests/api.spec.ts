@@ -188,17 +188,17 @@ for (const { type, storage } of implementations) {
 		);
 	});
 
-	test(`${type}.constructor - Throws Error`, () => {
-		const fileName = type === 'localStorage' ? dbFile : ':memory:';
-
-		// @ts-expect-error Omitting the argument for the test
-		expect(() => new Storage(fileName, {}).toThrow('The emitter option must be an instance of EventEmitter.'));
-	});
-
-	test('Storage constructor throws on empty fileName', () => {
+	test(`${type}.constructor - Throws on empty file name`, () => {
 		expect(() => {
 			// @ts-expect-error The expected error should throw early enough before the second argument is checked.
 			new Storage('');
 		}).toThrow('The provided database file name is empty.');
+	});
+
+	test(`${type}.constructor - Throws on missing emitter option`, () => {
+		const fileName = type === 'localStorage' ? dbFile : ':memory:';
+
+		// @ts-expect-error Omitting the argument for the test
+		expect(() => new Storage(fileName, {}).toThrow('The emitter option must be an instance of EventEmitter.'));
 	});
 }
