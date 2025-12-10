@@ -188,7 +188,7 @@ for (const { type, storage } of implementations) {
 		);
 	});
 
-	test(`${type}.constructor - Throws on empty file name`, () => {
+	test(`${type}.constructor - Throws on empty db file name`, () => {
 		expect(() => {
 			// @ts-expect-error The expected error should throw early enough before the second argument is checked.
 			new Storage('');
