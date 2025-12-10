@@ -248,7 +248,7 @@ export function createStorage(
 		quota: options?.quota,
 	});
 
-	const localStorage = new Storage(fileName, {
+	const localStorage = new Storage(fileName || ':memory:', {
 		emitter,
 		quota: options?.quota,
 	});
