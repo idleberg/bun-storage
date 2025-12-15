@@ -7,7 +7,7 @@
         "@commitlint/cli": "^20.2.0",
         "@commitlint/config-conventional": "^20.2.0",
         "@e18e/cli": "^0.3.1",
-        "@idleberg/configs": "^0.3.3",
+        "@idleberg/configs": "^0.4.1",
         "@types/node": "^24.10.1",
         "bun-types": "^1.3.4",
         "concurrently": "^9.2.1",
@@ -172,7 +172,7 @@
 
     "@e18e/cli": ["@e18e/cli@0.3.1", "", { "dependencies": { "@arethetypeswrong/core": "^0.18.2", "@clack/prompts": "^1.0.0-alpha.6", "@publint/pack": "^0.1.2", "debug": "^4.4.3", "fdir": "^6.5.0", "gunshi": "^0.26.3", "module-replacements": "^2.9.0", "module-replacements-codemods": "^1.2.0", "package-manager-detector": "^1.5.0", "picocolors": "^1.1.1", "publint": "^0.3.15", "semver": "^7.7.3", "tinyglobby": "^0.2.15" }, "bin": { "e18e-cli": "cli.js" } }, "sha512-o1jliM8zUNaaP+EbHADYJ/YhbCVnhmYsGnlWM6udJ4gr9cWoRozWw7kdm81OjVqInhZ0dZLfBi8eW1Rsj2hdkQ=="],
 
-    "@idleberg/configs": ["@idleberg/configs@0.3.3", "", { "dependencies": { "@biomejs/biome": "^2.3.4", "@total-typescript/tsconfig": "^1.0.4", "lefthook": "^2.0.3" } }, "sha512-hb8FiaWFQ4a9ZF3NMQjmvgvAI/V0xjQtwheIRg4f5NRnCVfygL0MjFEP29AnGJu2rub2A5AemPiIWYnhwuRs+A=="],
+    "@idleberg/configs": ["@idleberg/configs@0.4.1", "", { "dependencies": { "@biomejs/biome": "^2.3.9", "@e18e/cli": "^0.3.1", "@total-typescript/tsconfig": "^1.0.4", "lefthook": "^2.0.12" } }, "sha512-oLVZPHOrhgxdeXsxukD1vB30eDkF0UidfhthsBBKksF7GM0lhQNTWNThsJojrazI/0OZV9giQCeVxsm3/cUK0Q=="],
 
     "@inquirer/ansi": ["@inquirer/ansi@1.0.2", "", {}, "sha512-S8qNSZiYzFd0wAcyG5AXCvUHC5Sr7xpZ9wZ2py9XR88jUz8wooStVx5M6dRzczbBWjic9NP7+rY0Xi7qqK/aMQ=="],
 
