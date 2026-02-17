@@ -28,6 +28,7 @@ bunx jsr add @idleberg/bun-storage
 ## Usage
 
 > [!NOTE]
+> 
 > The following examples will assume that you're installing npm. If you're using JSR, make sure to adjust the imports.
 
 For simple use cases, the automatic setup will expose both `sessionStorage` and `localStorage`, on the global object.
@@ -70,7 +71,7 @@ Optional storage quota in bytes, useful for emulating browser behaviour.
 
 Usage: `new Storage(filePath: string | ':memory:', options?: StorageClassOptions)`
 
-This class is used internally by the above factory functions. It allows you more control over the EventEmitter, e.g. you could re-use an existing one from your application code.
+This class is used internally by `createStorage`. It allows you more control over the EventEmitter, e.g. you could re-use an existing one from your application code.
 
 **Example:**
 
