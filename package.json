@@ -28,7 +28,6 @@
 		"check:biome": "biome check",
 		"check:e18e": "e18e-cli analyze",
 		"dev": "bun run build -- --watch",
-		"prepare": "lefthook install",
 		"publish": "np --any-branch",
 		"test": "bun test"
 	},
